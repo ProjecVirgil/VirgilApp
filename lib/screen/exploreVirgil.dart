@@ -1,0 +1,153 @@
+import 'package:flutter/material.dart';
+import 'package:virgil_app/screen/utils/sideBar.dart';
+import 'package:virgil_app/screen/utils/swtichBrightness.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
+import 'package:virgil_app/screen/utils/auth.dart';
+import 'package:virgil_app/screen/utils/cardExplore.dart';
+
+class explore extends StatefulWidget {
+  const explore({super.key});
+
+  @override
+  State<explore> createState() => _exploreState();
+}
+
+class _exploreState extends State<explore> {
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
+  ScrollController _scrollController = ScrollController();
+
+  Future<void> esci() async {
+    await Auth().signOut();
+  }
+
+
+
+  List<List<dynamic>> cardList = [
+    [
+      'Wheather',
+      'try say Virgilio che tempo fa a Roma',
+      'images/UndrawCard/Weather.png',
+      Icons.sunny
+    ],
+    [
+      'Time',
+      'try say Virgilio che ore sono',
+      'images/UndrawCard/Time.png',
+      Icons.access_time
+    ],
+    [
+      'News',
+      'try say Virgilio dimmi le ultime notizie',
+      'images/UndrawCard/News.png',
+      Icons.newspaper
+    ],
+    [
+      'Volume',
+      'try say Virgilio imposta il volume al 20%',
+      'images/UndrawCard/Volume.png',
+      Icons.volume_up
+    ],
+    [
+      'Temperatura',
+      'try say Virgilio quanti gradi fanno a Napoli',
+      'images/UndrawCard/Temperature.png',
+      Icons.sunny_snowing
+    ],
+    [
+      'Days of Week',
+      'try say Virgilio che giorno è domani',
+      'images/UndrawCard/Calendar.png',
+      Icons.calendar_month_outlined
+    ],
+    [
+      'Domotic',
+      'try say Virgilio accendi la luce',
+      'images/UndrawCard/Domotic.png',
+      Icons.lightbulb
+    ],
+    [
+      'Timer',
+      'try say Virgilio imposta un timer di 30 secondi',
+      'images/UndrawCard/Timer.png',
+      Icons.timer
+    ],
+    [
+      'GPT',
+      'try say Virgilio speak me of the quantic math',
+      'images/UndrawCard/GPT.png',
+      Icons.computer
+    ],
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: HexColor(context.watch<brightessSwitch>().background),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: GestureDetector(
+          onTap: () {
+            _globalKey.currentState!.openDrawer();
+          },
+          child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: context.watch<brightessSwitch>().background == '#303030' ?  Image.asset('images/Icons/menusWhite.png') : Image.asset('images/Icons/menusBlack.png')
+
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: HexColor(context.watch<brightessSwitch>().background),
+      ),
+      key: _globalKey,
+      drawer:const sideBar(),
+      //BODY
+      body:
+      Stack(
+        children: [
+          ScrollConfiguration(
+            behavior: ScrollBehavior().copyWith(overscroll: false), // Rimuove l'overscroll indicator
+            child: ListView(
+              
+              controller: _scrollController,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Center(
+                    child: AnimatedDefaultTextStyle(
+                  style: GoogleFonts.ptSans(fontSize: 30, fontWeight: FontWeight.bold,color:HexColor(context.watch<brightessSwitch>().text) ),
+                      duration: const Duration(seconds: 1),
+                      child: const Text( 'Find out what Virgil can do',),
+                )),
+              ),
+              for (var i in cardList)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0, left: 10, right: 10),
+                  child: cardExplore(
+                      title: i[0], subtitle: i[1], pathImage: i[2], icon: i[3]),
+                )
+            ],
+        ),
+          ),
+      ]
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+        onPressed: () {
+          _scrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        },
+        child: const Icon(Icons.arrow_upward),
+      ),
+    );
+  }
+}
+/*
+
+ */

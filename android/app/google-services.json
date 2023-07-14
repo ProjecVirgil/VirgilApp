@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "991613302891",
+    "project_id": "virgilapp-flutter",
+    "storage_bucket": "virgilapp-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991613302891:android:a8fcc8b107068569e1192e",
+        "android_client_info": {
+          "package_name": "com.example.virgil_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991613302891-un2ana4lj3p5p128dd5va7o7gtfu93on.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTSsNVGjlr-Ph12W37LuuueuzNhw0nTmw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991613302891-un2ana4lj3p5p128dd5va7o7gtfu93on.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "991613302891-7rttj9j3g33dhsbhne7tqm6q7m5gac7p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.virgilApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
