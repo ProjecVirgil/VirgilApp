@@ -67,8 +67,8 @@ class _formsignupState extends State<formsignup> {
   bool isLogin = true;
 
   Future<void> createUser() async {
-    print(_email.text);
-    print(_password.text);
+    //print(_email.text);
+    //print(_password.text);
     try {
       await Auth().createUserWithEmailAndPassword(
           email: _email.text, password: _password.text);

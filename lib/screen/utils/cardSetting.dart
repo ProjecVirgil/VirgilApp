@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:virgil_app/screen/utils/swtichBrightness.dart';
-import 'package:provider/provider.dart';
 
 class CardSetting extends StatelessWidget {
   const CardSetting(
@@ -21,7 +18,7 @@ class CardSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double screenWidth = screenSize.width;
-    double screenHeight = screenSize.height;
+    //double screenHeight = screenSize.height;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(

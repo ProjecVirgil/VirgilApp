@@ -1,10 +1,10 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:virgil_app/screen/utils/sideBar.dart';
 import 'package:virgil_app/screen/utils/swtichBrightness.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:virgil_app/screen/utils/auth.dart';
 import 'package:virgil_app/screen/utils/cardExplore.dart';
 
 class explore extends StatefulWidget {
@@ -16,13 +16,7 @@ class explore extends StatefulWidget {
 
 class _exploreState extends State<explore> {
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
-  ScrollController _scrollController = ScrollController();
-
-  Future<void> esci() async {
-    await Auth().signOut();
-  }
-
-
+  final ScrollController _scrollController = ScrollController();
 
   List<List<dynamic>> cardList = [
     [
@@ -85,54 +79,61 @@ class _exploreState extends State<explore> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: HexColor(context.watch<brightessSwitch>().background),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: GestureDetector(
-          onTap: () {
-            _globalKey.currentState!.openDrawer();
-          },
-          child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: context.watch<brightessSwitch>().background == '#303030' ?  Image.asset('images/Icons/menusWhite.png') : Image.asset('images/Icons/menusBlack.png')
-
-          ),
-        ),
-        elevation: 0,
-        backgroundColor: HexColor(context.watch<brightessSwitch>().background),
-      ),
       key: _globalKey,
-      drawer:const sideBar(),
+      drawer: const sideBar(),
       //BODY
-      body:
-      Stack(
-        children: [
-          ScrollConfiguration(
-            behavior: ScrollBehavior().copyWith(overscroll: false), // Rimuove l'overscroll indicator
-            child: ListView(
-              
-              controller: _scrollController,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Center(
-                    child: AnimatedDefaultTextStyle(
-                  style: GoogleFonts.ptSans(fontSize: 30, fontWeight: FontWeight.bold,color:HexColor(context.watch<brightessSwitch>().text) ),
-                      duration: const Duration(seconds: 1),
-                      child: const Text( 'Find out what Virgil can do',),
-                )),
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            automaticallyImplyLeading: false,
+            title: const Text('Explore'),
+            centerTitle: true,
+            leading: GestureDetector(
+              onTap: () {
+                _globalKey.currentState!.openDrawer();
+              },
+              child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child:
+                      context.watch<brightessSwitch>().background == '#303030'
+                          ? Image.asset('images/Icons/menusWhite.png')
+                          : Image.asset('images/Icons/menusBlack.png')),
+            ),
+            elevation: 0,
+            backgroundColor:
+                HexColor(context.watch<brightessSwitch>().background),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(1.0),
+              // Imposta l'altezza del bordo inferiore
+              child: Container(
+                height: 1,
+                color: Colors
+                    .deepPurpleAccent, // Imposta il colore del bordo inferiore
               ),
-              for (var i in cardList)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0, left: 10, right: 10),
-                  child: cardExplore(
-                      title: i[0], subtitle: i[1], pathImage: i[2], icon: i[3]),
-                )
-            ],
-        ),
+            ),
           ),
-      ]
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                final i = cardList[index];
+                return Padding(
+                  padding: const EdgeInsets.only(
+                      bottom: 20.0, left: 10, right: 10, top: 20),
+                  child: cardExplore(
+                    title: i[0],
+                    subtitle: i[1],
+                    pathImage: i[2],
+                    icon: i[3],
+                  ),
+                );
+              },
+              childCount: cardList.length,
+            ),
+          ),
+        ],
       ),
-
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,

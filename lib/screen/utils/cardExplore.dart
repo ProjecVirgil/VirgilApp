@@ -1,8 +1,8 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:virgil_app/screen/utils/swtichBrightness.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:provider/provider.dart';
+
 
 class cardExplore extends StatelessWidget {
   const cardExplore({super.key,
@@ -77,7 +77,7 @@ class cardExplore extends StatelessWidget {
                   ),
                   Positioned(
                     top: 30,
-                    child: Container(
+                    child: SizedBox(
                       width: 230,
                       height: 100,
                       child: Text(

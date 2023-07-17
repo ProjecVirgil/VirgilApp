@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:virgil_app/screen/utils/cardSetting.dart';
 import 'package:virgil_app/screen/utils/sideBar.dart';
 import 'package:virgil_app/screen/utils/swtichBrightness.dart';
-
 
 class home extends StatefulWidget {
   const home({super.key});
@@ -21,6 +22,7 @@ class _homeState extends State<home> {
   String user() {
     return Auth().getCurrentUserEmail();
   }
+
   double _height = 0.0;
 
   @override
@@ -39,7 +41,8 @@ class _homeState extends State<home> {
           child: Stack(
             children: [
               Positioned(
-                  top: 0, child: Image.asset('images/shapeHome.png', scale: 1.2)),
+                  top: 0,
+                  child: Image.asset('images/shapeHome.png', scale: 1.2)),
               Positioned(
                   top: 45,
                   left: 5,
@@ -59,7 +62,9 @@ class _homeState extends State<home> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(sliceEmail[0],
                       style: GoogleFonts.ptSans(
-                          fontSize: 40, fontWeight: FontWeight.bold,color:  Colors.white)),
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
                 ),
               ),
               Positioned(
@@ -69,7 +74,9 @@ class _homeState extends State<home> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text('welcome to Virgil App',
                       style: GoogleFonts.ptSans(
-                          fontSize: 18, fontWeight: FontWeight.bold,color:Colors.white)),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
                 ),
               ),
               Positioned(
@@ -83,29 +90,18 @@ class _homeState extends State<home> {
                   width: 330,
                   height: 120,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 0, right: 16),
-                    child: AnimatedDefaultTextStyle(
-                      textAlign: TextAlign.center,
-                      style:GoogleFonts.ubuntu(fontSize: 16, fontWeight: FontWeight.w600,color: HexColor(context.watch<brightessSwitch>().text)),
-                      duration: Duration(seconds: 1),
-                      child: const Text('Hi now that you are in you can configure and set up your Virgilio whenever and wherever you want first I suggest you configure virgilio via the token and then start exploring all you can do '),
-                    )
-
-                      /*
-                      RichText(
-                      textAlign: TextAlign.right,
-                      text: TextSpan(
-                          style: GoogleFonts.ubuntu(
-                              fontSize: 16, fontWeight: FontWeight.w600,color: HexColor(context.watch<brightessSwitch>().text)),
-                          children: const [
-                            TextSpan(
-                                // Da sostituire con tips randomici
-                                text:
-                                    'Hi now that you are in you can configure and set up your Virgilio whenever and wherever you want first I suggest you configure virgilio via the token and then start exploring all you can do ')
-                          ]),
-                    ),
-                       */
-                  ),
+                      padding: const EdgeInsets.only(top: 0, right: 16),
+                      child: AnimatedDefaultTextStyle(
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: HexColor(
+                                context.watch<brightessSwitch>().text)),
+                        duration: const Duration(seconds: 1),
+                        child: const Text(
+                            'Hi now that you are in you can configure and set up your Virgilio whenever and wherever you want first I suggest you configure virgilio via the token and then start exploring all you can do '),
+                      )),
                 ),
               ),
               Positioned(
@@ -123,7 +119,7 @@ class _homeState extends State<home> {
                 child: IconButton(
                     onPressed: () {
                       setState(() {
-                        _height = screenHeight/2;
+                        _height = screenHeight / 2;
                       });
                     },
                     icon: const Icon(Icons.arrow_upward)),
@@ -135,12 +131,12 @@ class _homeState extends State<home> {
                     curve: Curves.decelerate,
                     width: screenWidth,
                     height: _height,
-                    decoration:  BoxDecoration(
+                    decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
-
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40)),
-                      color: HexColor(context.watch<brightessSwitch>().background),
+                      color:
+                          HexColor(context.watch<brightessSwitch>().background),
                     ),
                     child: ListView(
                       padding: const EdgeInsets.all(0),
@@ -151,12 +147,14 @@ class _homeState extends State<home> {
                                 _height = 0;
                               });
                             },
-                            icon: const Icon(Icons.arrow_downward),color: HexColor(context.read<brightessSwitch>().text)),
+                            icon: const Icon(Icons.arrow_downward),
+                            color:
+                                HexColor(context.read<brightessSwitch>().text)),
                         const CardSetting(
                           title: 'Virgil setting',
                           icon: 'images/Icons/setting-lines.png',
                           paragraf: 'Modify the setting of your virgil',
-                          page: '',
+                          page: 'settings',
                         ),
                         const CardSetting(
                           title: 'Explore',
@@ -164,7 +162,6 @@ class _homeState extends State<home> {
                           paragraf: 'Find out what Virgil can do',
                           page: 'explore',
                         ),
-
                         const CardSetting(
                           title: 'Configure',
                           icon: 'images/Icons/configuration.png',
@@ -176,9 +173,6 @@ class _homeState extends State<home> {
               )
             ],
           ),
-        )
-    );
+        ));
   }
 }
-
-

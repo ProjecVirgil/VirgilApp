@@ -3,6 +3,7 @@ import 'package:virgil_app/screen/signup/formsignup.dart';
 import 'package:virgil_app/screen/signup/titlesignup.dart';
 import 'package:virgil_app/screen/utils/frostedGlass.dart';
 
+// ignore: camel_case_types
 class signup extends StatefulWidget {
   const signup({Key? key}) : super(key: key);
 

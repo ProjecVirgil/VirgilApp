@@ -1,9 +1,7 @@
-// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'dart:ui';
-
-import 'package:flutter/rendering.dart';
 
 class frostedGlass extends StatelessWidget {
   const frostedGlass(

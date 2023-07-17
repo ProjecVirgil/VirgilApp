@@ -53,8 +53,8 @@ class _formLoginState extends State<formLogin> {
   bool isLogin = true;
 
   Future<void> signIn() async {
-    print(_email.text);
-    print(_password.text);
+    //print(_email.text);
+    //print(_password.text);
 
     try {
       await Auth().signInWithEmailAndPassword(

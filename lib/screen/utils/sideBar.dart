@@ -1,4 +1,6 @@
 
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -27,7 +29,7 @@ class _sideBarState extends State<sideBar> {
     bool isDark = context.watch<brightessSwitch>().isDark;
     Size screenSize = MediaQuery.of(context).size;
     double screenWidth = screenSize.width;
-    double screenHeight = screenSize.height;
+    //double screenHeight = screenSize.height;
 
     return  Drawer(
       width: screenWidth / 2,
@@ -118,26 +120,31 @@ class _sideBarState extends State<sideBar> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0, left: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset(
-                  'images/Icons/setting-linesGrey.png',
-                  width: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    'Virgil setting',
-                    style: GoogleFonts.ibmPlexSans(
-                        color: HexColor('8a8a8a'),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, 'settings');
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30.0, left: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    'images/Icons/setting-linesGrey.png',
+                    width: 20,
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      'Virgil setting',
+                      style: GoogleFonts.ibmPlexSans(
+                          color: HexColor('8a8a8a'),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(
