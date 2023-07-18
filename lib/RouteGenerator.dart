@@ -1,4 +1,7 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:virgil_app/screen/configure/configure.dart';
 import 'package:virgil_app/screen/home.dart';
 import 'package:virgil_app/screen/settingsVirgil.dart';
 import 'package:virgil_app/screen/signin_signup.dart';
@@ -18,6 +21,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (context) => const explore());
       case 'settings':
         return MaterialPageRoute(builder: (context) => const settingsVirgil());
+      case 'configure':
+        return MaterialPageRoute(builder: (context) => const configure());
       default:
         return MaterialPageRoute(builder: (context) => const Text('ciao'));
     }

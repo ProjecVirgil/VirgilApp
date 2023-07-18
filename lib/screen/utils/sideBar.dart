@@ -147,23 +147,28 @@ class _sideBarState extends State<sideBar> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0, left: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset('images/Icons/configurationGrey.png', width: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    'Configure',
-                    style: GoogleFonts.ibmPlexSans(
-                        color: HexColor('8a8a8a'),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18),
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, 'configure');
+              },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30.0, left: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset('images/Icons/configurationGrey.png', width: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      'Configure',
+                      style: GoogleFonts.ibmPlexSans(
+                          color: HexColor('8a8a8a'),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           GestureDetector(

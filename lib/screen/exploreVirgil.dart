@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:virgil_app/screen/utils/sideBar.dart';
 import 'package:virgil_app/screen/utils/swtichBrightness.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -88,8 +89,11 @@ class _exploreState extends State<explore> {
           SliverAppBar(
             floating: true,
             automaticallyImplyLeading: false,
-            title: const Text('Explore'),
-            centerTitle: true,
+            title:  AnimatedDefaultTextStyle(
+                style: GoogleFonts.ubuntu(fontSize: 20,fontWeight: FontWeight.bold,color:HexColor(context.watch<brightessSwitch>().text)),
+                duration: const Duration(seconds: 1),
+                child: const Text('Explore')
+            ),            centerTitle: true,
             leading: GestureDetector(
               onTap: () {
                 _globalKey.currentState!.openDrawer();

@@ -1,6 +1,8 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:virgil_app/screen/utils/sideBar.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,9 +24,9 @@ class settingsVirgil extends StatefulWidget {
 
 class _settingsVirgilState extends State<settingsVirgil> {
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
+
   //KEY FORM
   final formKey = GlobalKey<FormState>();
-
 
   //CONTROLLER TEXT
   final TextEditingController _word = TextEditingController();
@@ -38,7 +40,6 @@ class _settingsVirgilState extends State<settingsVirgil> {
   final TextEditingController _maxtoken = TextEditingController();
   final TextEditingController _meteo = TextEditingController();
 
-
   //VALORI SETING
   String language = 'en';
   bool isDynamic = true;
@@ -47,40 +48,49 @@ class _settingsVirgilState extends State<settingsVirgil> {
 
   //REGEX
   RegExp regexForWordAndGPT = RegExp(r'^[a-zA-Z0-9\-]+$');
-  RegExp regexWheather= RegExp(r'^[0-9A-Fa-f]+$');
+  RegExp regexWheather = RegExp(r'^[0-9A-Fa-f]+$');
   RegExp regexDeeple = RegExp(r'^[a-z0-9:]+$');
 
 
+  Future<String> readKeyFile() async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    String filePath = '${directory.path}/key.txt';
+    File file = File(filePath);
+    var id = await file.readAsString();
+    return id;
+  }
 
-   sendNewSetting() async{
 
-    String url = 'http://localhost:5000/api/setting/modify/ed1e042a3565031d42a486bbf9cf1eb8/';
+  sendNewSetting() async {
+    var id = await readKeyFile();
+    String url =
+        'http://localhost:5000/api/setting/modify/$id/';
+    //URL VA HOSTATO O NON VA UN CAZZO
 
-     var response = http.post(Uri.parse(url),body:
-
-         {
-         "language": language,
-         "wordActivation": _word.text,
-         "volume": volume.toString(),
-         "city" : city,
-         "Listener" : {
-         "operation_timeout" : _timeout.text.toString(),
-         "dynamic_energy_threshold" : isDynamic.toString(),
-         "energy_threshold" : _energy.text.toString(),
-         },
-         "api" : {
-         "openAI":_GPT.text,
-         "weather":_meteo.text,
-         "merros":[_merrosEmail.text,_merrosPassord.text],
-         "deeple": _deeple.text,
-         },
-         "GPT":{
-         "temperature":_temperature.text.toString(),
-         "max_tokens" : _maxtoken.text.toString(),
-         });
-
-     print(response.body);
-
+    dynamic settingUpdate = {
+      "language": language,
+      "wordActivation": _word.text,
+      "volume": volume.toString(),
+      "city": city,
+      "Listener": {
+        "operation_timeout": _timeout.text.toString(),
+        "dynamic_energy_threshold": isDynamic.toString(),
+        "energy_threshold": _energy.text.toString(),
+      },
+      "api": {
+        "openAI": _GPT.text,
+        "weather": _meteo.text,
+        "merros": [_merrosEmail.text, _merrosPassord.text],
+        "deeple": _deeple.text,
+      },
+      "GPT": {
+        "temperature": _temperature.text.toString(),
+        "max_tokens": _maxtoken.text.toString(),
+      }
+    };
+    print(settingUpdate);
+    var response = await http.post(Uri.parse(url), body: jsonEncode(settingUpdate), );
+    print(response.body);
 
     if (response.statusCode == 200) {
       // La richiesta post è stata completata con successo
@@ -89,13 +99,11 @@ class _settingsVirgilState extends State<settingsVirgil> {
       // La richiesta post ha fallito
       print('Errore nella richiesta post: ${response.statusCode}');
     }
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
+
     final subtitle = GoogleFonts.ubuntu(
         fontSize: 13,
         fontWeight: FontWeight.normal,
@@ -122,8 +130,11 @@ class _settingsVirgilState extends State<settingsVirgil> {
           SliverAppBar(
             floating: true,
             automaticallyImplyLeading: false,
-            title: const Text('Setting'),
-            centerTitle: true,
+            title:  AnimatedDefaultTextStyle(
+                style: GoogleFonts.ubuntu(fontSize: 20,fontWeight: FontWeight.bold,color:HexColor(context.watch<brightessSwitch>().text)),
+                duration: const Duration(seconds: 1),
+                child: const Text('Setting')
+            ),            centerTitle: true,
             leading: GestureDetector(
               onTap: () {
                 _globalKey.currentState!.openDrawer();
@@ -202,8 +213,8 @@ class _settingsVirgilState extends State<settingsVirgil> {
 
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child:
-                        Text('Choose your Virgil activation word', style: title),
+                    child: Text('Choose your Virgil activation word',
+                        style: title),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -220,10 +231,13 @@ class _settingsVirgilState extends State<settingsVirgil> {
                       width: 200,
                       child: TextFormField(
                         controller: _word,
-                        validator: (value){
-                          if(value == null || value.isEmpty || !regexForWordAndGPT.hasMatch(value) ){
-                                return 'non puoi inserire questa stringa';
+                        validator: (value) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              !regexForWordAndGPT.hasMatch(value)) {
+                            return 'non puoi inserire questa stringa';
                           }
+                          return null;
                         },
                         maxLines: 1,
                         maxLength: 10,
@@ -232,8 +246,9 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         decoration: InputDecoration(
                           hintText: 'es: virgilio',
                           hintStyle: TextStyle(
-                            color: HexColor(context.watch<brightessSwitch>().text)
-                                .withOpacity(0.8),
+                            color:
+                                HexColor(context.watch<brightessSwitch>().text)
+                                    .withOpacity(0.8),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -333,24 +348,23 @@ class _settingsVirgilState extends State<settingsVirgil> {
                   ),
 
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20.0, horizontal: 5),
                     child: Divider(
                       thickness: 4,
                       color: Colors.deepPurpleAccent.withOpacity(0.5),
                     ),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(left: (screenWidth - 130) / 2),
+                  Center(
                     child: Text(
                       "Listener",
                       style: divider,
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.only(top: 8.0, left: (screenWidth - 360) / 2),
+                    padding: EdgeInsets.only(
+                        top: 8.0, left: (screenWidth - 360) / 2),
                     child: Text(
                       'Modify the setting of the microphone when use Virgil',
                       style: subtitle,
@@ -364,36 +378,39 @@ class _settingsVirgilState extends State<settingsVirgil> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text('time limit for one expression', style: subtitle),
+                    child:
+                        Text('time limit for one expression', style: subtitle),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: (screenWidth - 220) / 2,
-                        right: (screenWidth - 220) / 2),
-                    child: SizedBox(
-                      width: 150,
-                      child: TextField(
-                        controller: _timeout,
-                        keyboardType: TextInputType.number,
-                        maxLines: 1,
-                        maxLength: 10,
-                        autocorrect: false,
-                        cursorColor: Colors.deepPurple,
-                        decoration: InputDecoration(
-                          hintText: '3',
-                          hintStyle: TextStyle(
-                            color: HexColor(context.watch<brightessSwitch>().text)
-                                .withOpacity(0.8),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: HexColor(context
-                                    .watch<brightessSwitch>()
-                                    .text)), // Colore del bordo quando l'input è abilitato
-                          ),
-                          focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.deepPurple),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 20,
+                      ),
+                      child: SizedBox(
+                        width: 150,
+                        child: TextField(
+                          controller: _timeout,
+                          keyboardType: TextInputType.number,
+                          maxLines: 1,
+                          maxLength: 10,
+                          autocorrect: false,
+                          cursorColor: Colors.deepPurple,
+                          decoration: InputDecoration(
+                            hintText: '3',
+                            hintStyle: TextStyle(
+                              color:
+                                  HexColor(context.watch<brightessSwitch>().text)
+                                      .withOpacity(0.8),
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: HexColor(context
+                                      .watch<brightessSwitch>()
+                                      .text)), // Colore del bordo quando l'input è abilitato
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.deepPurple),
+                            ),
                           ),
                         ),
                       ),
@@ -408,11 +425,11 @@ class _settingsVirgilState extends State<settingsVirgil> {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text('sensitivity of microphone', style: subtitle),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: (screenWidth - 220) / 2,
-                        right: (screenWidth - 220) / 2),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: SizedBox(
                       width: 150,
                       child: TextField(
@@ -425,8 +442,9 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         decoration: InputDecoration(
                           hintText: '3500',
                           hintStyle: TextStyle(
-                            color: HexColor(context.watch<brightessSwitch>().text)
-                                .withOpacity(0.8),
+                            color:
+                                HexColor(context.watch<brightessSwitch>().text)
+                                    .withOpacity(0.8),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -441,7 +459,7 @@ class _settingsVirgilState extends State<settingsVirgil> {
                       ),
                     ),
                   ),
-
+              ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text('Energy threshold dynamic', style: title),
@@ -452,11 +470,11 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         style: subtitle),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: (screenWidth - 80) / 2,
-                        right: (screenWidth - 80) / 2),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: Switch(
                       value: isDynamic,
                       onChanged: (bool value) {
@@ -468,37 +486,39 @@ class _settingsVirgilState extends State<settingsVirgil> {
                     ),
                   ),
                   //DA AGGIUNGERE CHEKBOX TRUE FALSE
-
+              ),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20.0, horizontal: 5),
                     child: Divider(
                       thickness: 4,
                       color: Colors.deepPurpleAccent.withOpacity(0.5),
                     ),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: (screenWidth - 100) / 2,
-                        right: (screenWidth - 100) / 2),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: Text(
                       "API",
                       style: divider,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 8.0,
-                        left: (screenWidth - 380) / 2,
-                        right: (screenWidth - 380) / 2),
+              ),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: Text(
                       'set your API key',
                       style: subtitle,
                       textAlign: TextAlign.center,
                     ),
                   ),
-
+              ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text('GPT', style: title),
@@ -508,19 +528,22 @@ class _settingsVirgilState extends State<settingsVirgil> {
                     child: Text('API for GPT interaction', style: subtitle),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: (screenWidth - 280) / 2,
-                        right: (screenWidth - 280) / 2),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: SizedBox(
                       width: 250,
                       child: TextFormField(
                         controller: _GPT,
-                        validator: (value){
-                          if(value == null || value.isEmpty || !regexForWordAndGPT.hasMatch(value) ){
+                        validator: (value) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              !regexForWordAndGPT.hasMatch(value)) {
                             return 'inserisci una key valida';
                           }
+                          return null;
                         },
                         maxLines: 1,
                         maxLength: 52,
@@ -529,8 +552,9 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         decoration: InputDecoration(
                           hintText: 'key',
                           hintStyle: TextStyle(
-                            color: HexColor(context.watch<brightessSwitch>().text)
-                                .withOpacity(0.8),
+                            color:
+                                HexColor(context.watch<brightessSwitch>().text)
+                                    .withOpacity(0.8),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -545,29 +569,33 @@ class _settingsVirgilState extends State<settingsVirgil> {
                       ),
                     ),
                   ),
-
+              ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text('OpenMeteo', style: title),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text('API for Wheather interaction', style: subtitle),
+                    child:
+                        Text('API for Wheather interaction', style: subtitle),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: (screenWidth - 280) / 2,
-                        right: (screenWidth - 280) / 2),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: SizedBox(
                       width: 250,
                       child: TextFormField(
                         controller: _meteo,
-                        validator: (value){
-                          if(value == null || value.isEmpty || !regexWheather.hasMatch(value) ){
+                        validator: (value) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              !regexWheather.hasMatch(value)) {
                             return 'inserisci una key valida';
                           }
+                          return null;
                         },
                         maxLines: 1,
                         maxLength: 32,
@@ -576,8 +604,9 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         decoration: InputDecoration(
                           hintText: 'key',
                           hintStyle: TextStyle(
-                            color: HexColor(context.watch<brightessSwitch>().text)
-                                .withOpacity(0.8),
+                            color:
+                                HexColor(context.watch<brightessSwitch>().text)
+                                    .withOpacity(0.8),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -592,7 +621,7 @@ class _settingsVirgilState extends State<settingsVirgil> {
                       ),
                     ),
                   ),
-
+              ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text('Merros', style: title),
@@ -602,11 +631,11 @@ class _settingsVirgilState extends State<settingsVirgil> {
                     child: Text('API for domotic Merros', style: subtitle),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: (screenWidth - 280) / 2,
-                        right: (screenWidth - 280) / 2),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: SizedBox(
                       width: 250,
                       child: TextField(
@@ -618,8 +647,9 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         decoration: InputDecoration(
                           hintText: 'email',
                           hintStyle: TextStyle(
-                            color: HexColor(context.watch<brightessSwitch>().text)
-                                .withOpacity(0.8),
+                            color:
+                                HexColor(context.watch<brightessSwitch>().text)
+                                    .withOpacity(0.8),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -634,12 +664,12 @@ class _settingsVirgilState extends State<settingsVirgil> {
                       ),
                     ),
                   ),
-
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: (screenWidth - 280) / 2,
-                        right: (screenWidth - 280) / 2),
+              ),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: SizedBox(
                       width: 250,
                       child: TextField(
@@ -651,8 +681,9 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         decoration: InputDecoration(
                           hintText: 'password',
                           hintStyle: TextStyle(
-                            color: HexColor(context.watch<brightessSwitch>().text)
-                                .withOpacity(0.8),
+                            color:
+                                HexColor(context.watch<brightessSwitch>().text)
+                                    .withOpacity(0.8),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -667,7 +698,7 @@ class _settingsVirgilState extends State<settingsVirgil> {
                       ),
                     ),
                   ),
-
+              ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text('Deeple', style: title),
@@ -678,19 +709,22 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         style: subtitle),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: (screenWidth - 280) / 2,
-                        right: (screenWidth - 280) / 2),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: SizedBox(
                       width: 250,
                       child: TextFormField(
                         controller: _deeple,
-                        validator: (value){
-                          if(value == null || value.isEmpty || !regexDeeple.hasMatch(value) ){
+                        validator: (value) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              !regexDeeple.hasMatch(value)) {
                             return 'inserisci una key valida';
                           }
+                          return null;
                         },
                         maxLines: 1,
                         maxLength: 40,
@@ -699,8 +733,9 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         decoration: InputDecoration(
                           hintText: 'key',
                           hintStyle: TextStyle(
-                            color: HexColor(context.watch<brightessSwitch>().text)
-                                .withOpacity(0.8),
+                            color:
+                                HexColor(context.watch<brightessSwitch>().text)
+                                    .withOpacity(0.8),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -715,35 +750,38 @@ class _settingsVirgilState extends State<settingsVirgil> {
                       ),
                     ),
                   ),
-
+              ),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20.0, horizontal: 5),
                     child: Divider(
                       thickness: 4,
                       color: Colors.deepPurpleAccent.withOpacity(0.5),
                     ),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: (screenWidth - 100) / 2,
-                        right: (screenWidth - 100) / 2),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: Text(
                       "GPT",
                       style: divider,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 8.0,
-                        left: (screenWidth - 270) / 2,
-                        right: (screenWidth - 270) / 2),
+              ),
+                  Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 20,
+                        ),
                     child: Text(
                       'GPT setting',
                       style: subtitle,
                       textAlign: TextAlign.center,
                     ),
+                  ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
@@ -751,14 +789,14 @@ class _settingsVirgilState extends State<settingsVirgil> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child:
-                        Text('handles randomness of responses', style: subtitle),
+                    child: Text('handles randomness of responses',
+                        style: subtitle),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: (screenWidth - 220) / 2,
-                        right: (screenWidth - 220) / 2),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: SizedBox(
                       width: 150,
                       child: TextField(
@@ -771,8 +809,9 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         decoration: InputDecoration(
                           hintText: '0.0 - 2.0',
                           hintStyle: TextStyle(
-                            color: HexColor(context.watch<brightessSwitch>().text)
-                                .withOpacity(0.8),
+                            color:
+                                HexColor(context.watch<brightessSwitch>().text)
+                                    .withOpacity(0.8),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -787,7 +826,7 @@ class _settingsVirgilState extends State<settingsVirgil> {
                       ),
                     ),
                   ),
-
+              ),
                   Padding(
                     padding: const EdgeInsets.only(top: 18.0),
                     child: Text('Max token', style: title),
@@ -798,11 +837,11 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         'max lenght responses, the length of the response will cost more in the long run',
                         style: subtitle),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: (screenWidth - 220) / 2,
-                        right: (screenWidth - 220) / 2),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                    ),
                     child: SizedBox(
                       width: 150,
                       child: TextField(
@@ -815,8 +854,9 @@ class _settingsVirgilState extends State<settingsVirgil> {
                         decoration: InputDecoration(
                           hintText: '30',
                           hintStyle: TextStyle(
-                            color: HexColor(context.watch<brightessSwitch>().text)
-                                .withOpacity(0.8),
+                            color:
+                                HexColor(context.watch<brightessSwitch>().text)
+                                    .withOpacity(0.8),
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -831,23 +871,35 @@ class _settingsVirgilState extends State<settingsVirgil> {
                       ),
                     ),
                   ),
-
+              ),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20.0, horizontal: 5),
                     child: Divider(
                       thickness: 4,
                       color: Colors.deepPurpleAccent.withOpacity(0.5),
                     ),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: (screenWidth - 200) / 2,
-                        right: (screenWidth - 200) / 2,
-                        bottom: 50),
+              Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 50,
+                    ),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _word.text = 'Virgilio';
+                        _timeout.text = '3';
+                        _energy.text = '3500';
+                        _GPT.text = 'sk-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+                        _deeple.text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+                        _meteo.text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+                        _merrosPassord.text = 'password';
+                        _merrosEmail.text = 'email';
+                        _temperature.text = '0.9';
+                        _maxtoken.text = '30';
+                        sendNewSetting();
+                      },
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.deepPurple),
@@ -855,6 +907,7 @@ class _settingsVirgilState extends State<settingsVirgil> {
                       child: const Text('Default setting'),
                     ),
                   ),
+              ),
                 ]),
               ),
             ),

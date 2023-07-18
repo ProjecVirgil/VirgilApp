@@ -151,12 +151,6 @@ class _homeState extends State<home> {
                             color:
                                 HexColor(context.read<brightessSwitch>().text)),
                         const CardSetting(
-                          title: 'Virgil setting',
-                          icon: 'images/Icons/setting-lines.png',
-                          paragraf: 'Modify the setting of your virgil',
-                          page: 'settings',
-                        ),
-                        const CardSetting(
                           title: 'Explore',
                           icon: 'images/Icons/compass.png',
                           paragraf: 'Find out what Virgil can do',
@@ -166,7 +160,13 @@ class _homeState extends State<home> {
                           title: 'Configure',
                           icon: 'images/Icons/configuration.png',
                           paragraf: 'Configure your Virgil with app',
-                          page: '',
+                          page: 'configure',
+                        ),
+                        const CardSetting(
+                          title: 'Virgil setting',
+                          icon: 'images/Icons/setting-lines.png',
+                          paragraf: 'Modify the setting of your virgil',
+                          page: 'settings',
                         ),
                       ],
                     )),
