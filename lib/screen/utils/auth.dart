@@ -31,4 +31,28 @@ class Auth{
       return '';
     }
   }
+
+
+  Future<void> resetPassword() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      String _email = user!.email!;
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: _email );
+
+    } catch (e) {
+        print('errore nel invio');
+    }
+
+  }
+
+
+  Future<String> verifyUser() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+      return 'Verification email sent successfully';
+    } else {
+      return 'Already verified user';
+    }
+  }
 }

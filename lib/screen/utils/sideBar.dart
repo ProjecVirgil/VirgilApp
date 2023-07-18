@@ -198,23 +198,26 @@ class _sideBarState extends State<sideBar> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 380.0, left: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset('images/Icons/profile.png', width: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    'Account Setting',
-                    style: GoogleFonts.ibmPlexSans(
-                        color: HexColor('8a8a8a'),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18),
+          GestureDetector(
+            onTap: () {Navigator.pushNamed(context, 'settingAcc');},
+            child: Padding(
+              padding: const EdgeInsets.only(top: 380.0, left: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset('images/Icons/profile.png', width: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      'Account Setting',
+                      style: GoogleFonts.ibmPlexSans(
+                          color: HexColor('8a8a8a'),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Padding(

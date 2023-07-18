@@ -127,7 +127,7 @@ class _homeState extends State<home> {
               Positioned(
                 bottom: 0,
                 child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 1000),
                     curve: Curves.decelerate,
                     width: screenWidth,
                     height: _height,
