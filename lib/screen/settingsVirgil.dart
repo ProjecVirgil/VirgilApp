@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:virgil_app/screen/utils/sideBar.dart';
@@ -9,6 +9,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:geolocator/geolocator.dart' as geolocator;
 import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:location/location.dart';
+import 'dart:core';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class settingsVirgil extends StatefulWidget {
   const settingsVirgil({super.key});
@@ -19,10 +22,77 @@ class settingsVirgil extends StatefulWidget {
 
 class _settingsVirgilState extends State<settingsVirgil> {
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
-  String dropdownValue = 'en';
+  //KEY FORM
+  final formKey = GlobalKey<FormState>();
+
+
+  //CONTROLLER TEXT
+  final TextEditingController _word = TextEditingController();
+  final TextEditingController _timeout = TextEditingController();
+  final TextEditingController _energy = TextEditingController();
+  final TextEditingController _GPT = TextEditingController();
+  final TextEditingController _merrosEmail = TextEditingController();
+  final TextEditingController _merrosPassord = TextEditingController();
+  final TextEditingController _deeple = TextEditingController();
+  final TextEditingController _temperature = TextEditingController();
+  final TextEditingController _maxtoken = TextEditingController();
+  final TextEditingController _meteo = TextEditingController();
+
+
+  //VALORI SETING
+  String language = 'en';
   bool isDynamic = true;
-  double valoreSlider = 100;
-  TextEditingController textEditingController = TextEditingController();
+  double volume = 100;
+  String city = 'Salerno';
+
+  //REGEX
+  RegExp regexForWordAndGPT = RegExp(r'^[a-zA-Z0-9\-]+$');
+  RegExp regexWheather= RegExp(r'^[0-9A-Fa-f]+$');
+  RegExp regexDeeple = RegExp(r'^[a-z0-9:]+$');
+
+
+
+   sendNewSetting() async{
+
+    String url = 'http://localhost:5000/api/setting/modify/ed1e042a3565031d42a486bbf9cf1eb8/';
+
+     var response = http.post(Uri.parse(url),body:
+
+         {
+         "language": language,
+         "wordActivation": _word.text,
+         "volume": volume.toString(),
+         "city" : city,
+         "Listener" : {
+         "operation_timeout" : _timeout.text.toString(),
+         "dynamic_energy_threshold" : isDynamic.toString(),
+         "energy_threshold" : _energy.text.toString(),
+         },
+         "api" : {
+         "openAI":_GPT.text,
+         "weather":_meteo.text,
+         "merros":[_merrosEmail.text,_merrosPassord.text],
+         "deeple": _deeple.text,
+         },
+         "GPT":{
+         "temperature":_temperature.text.toString(),
+         "max_tokens" : _maxtoken.text.toString(),
+         });
+
+     print(response.body);
+
+
+    if (response.statusCode == 200) {
+      // La richiesta post è stata completata con successo
+      print('Richiesta post completata');
+    } else {
+      // La richiesta post ha fallito
+      print('Errore nella richiesta post: ${response.statusCode}');
+    }
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,687 +150,723 @@ class _settingsVirgilState extends State<settingsVirgil> {
           ),
           SliverPadding(
             padding: const EdgeInsets.only(left: 20, right: 20),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0, bottom: 18.0),
-                  child: Text('General',
-                      textAlign: TextAlign.center, style: divider),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    'Choose language',
-                    style: title,
+            sliver: Form(
+              key: formKey,
+              child: SliverList(
+                delegate: SliverChildListDelegate([
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 18.0),
+                    child: Text('General',
+                        textAlign: TextAlign.center, style: divider),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    'choose the language for some translations that virgil will do such as weather or temperature translation',
-                    style: subtitle,
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: (screenWidth - 70) / 2,
-                      right: (screenWidth - 86) / 2),
-                  child: DropdownButton<String>(
-                    iconSize: 20,
-                    focusColor: Colors.deepPurple,
-                    dropdownColor: Colors.deepPurple,
-                    iconEnabledColor:
-                        HexColor(context.watch<brightessSwitch>().text),
-                    value: dropdownValue,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                      });
-                    },
-                    items: <String>['en', 'it', 'fr', 'de', 'es']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child:
-                      Text('Choose your Virgil activation word', style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                      'it is recommended to use an Italian word for now',
-                      style: subtitle),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 12,
-                      left: (screenWidth - 220) / 2,
-                      right: (screenWidth - 220) / 2),
-                  child: SizedBox(
-                    width: 200,
-                    child: TextField(
-                      maxLines: 1,
-                      maxLength: 10,
-                      autocorrect: false,
-                      cursorColor: Colors.deepPurple,
-                      decoration: InputDecoration(
-                        hintText: 'es: virgilio',
-                        hintStyle: TextStyle(
-                          color: HexColor(context.watch<brightessSwitch>().text)
-                              .withOpacity(0.8),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor(context
-                                  .watch<brightessSwitch>()
-                                  .text)), // Colore del bordo quando l'input è abilitato
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple),
-                        ),
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      'Choose language',
+                      style: title,
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text("Choose the volume", style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                      "The choice of volume will be considered only at startup you can change it during execution only from virgil itself ",
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      'choose the language for some translations that virgil will do such as weather or temperature translation',
                       style: subtitle,
-                      textAlign: TextAlign.left),
-                ),
-                Slider(
-                  inactiveColor: Colors.deepPurpleAccent[200],
-                  activeColor: Colors.deepPurple,
-                  thumbColor: Colors.deepPurpleAccent,
-                  divisions: 9,
-                  //overlayColor: MaterialStateProperty.all<Color>(Colors.white),
-                  secondaryActiveColor:
-                      HexColor(context.watch<brightessSwitch>().text),
-                  label: valoreSlider.toString(),
-                  value: valoreSlider,
-                  onChanged: (value) {
-                    setState(() {
-                      valoreSlider = value;
-                    });
-                  },
-                  min: 10,
-                  max: 100,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text("Choose your City", style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                      'The city choice is only for setting a default city when running weather or temperature commands',
-                      style: subtitle,
-                      textAlign: TextAlign.left),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 8,
-                      left: (screenWidth - 200) / 2,
-                      right: (screenWidth - 200) / 2),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.deepPurple)),
-                      onPressed: () async {
-                        Location location = Location();
-
-                        bool serviceEnabled;
-                        PermissionStatus permissionGranted;
-
-                        serviceEnabled = await location.serviceEnabled();
-                        if (!serviceEnabled) {
-                          serviceEnabled = await location.requestService();
-                          if (!serviceEnabled) {
-                            return;
-                          }
-                        }
-
-                        permissionGranted = await location.hasPermission();
-                        if (permissionGranted == PermissionStatus.denied) {
-                          permissionGranted =
-                              await location.requestPermission();
-                          if (permissionGranted != PermissionStatus.granted) {
-                            return;
-                          }
-                        }
-
-                        geolocator.Position position =
-                            await geolocator.Geolocator.getCurrentPosition();
-
-                        double latitude = position.latitude;
-                        double longitude = position.longitude;
-
-                        List<geocoding.Placemark> city = await geocoding
-                            .placemarkFromCoordinates(latitude, longitude);
-                        //print(city[0].locality);
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: (screenWidth - 70) / 2,
+                        right: (screenWidth - 86) / 2),
+                    child: DropdownButton<String>(
+                      iconSize: 20,
+                      focusColor: Colors.deepPurple,
+                      dropdownColor: Colors.deepPurple,
+                      iconEnabledColor:
+                          HexColor(context.watch<brightessSwitch>().text),
+                      value: language,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          language = newValue!;
+                        });
                       },
-                      child: const Text('Take position')),
-                ),
-
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
-                  child: Divider(
-                    thickness: 4,
-                    color: Colors.deepPurpleAccent.withOpacity(0.5),
+                      items: <String>['en', 'it', 'fr', 'de', 'es']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
-                ),
 
-                Padding(
-                  padding: EdgeInsets.only(left: (screenWidth - 130) / 2),
-                  child: Text(
-                    "Listener",
-                    style: divider,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child:
+                        Text('Choose your Virgil activation word', style: title),
                   ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 8.0, left: (screenWidth - 360) / 2),
-                  child: Text(
-                    'Modify the setting of the microphone when use Virgil',
-                    style: subtitle,
-                    textAlign: TextAlign.center,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                        'it is recommended to use an Italian word for now',
+                        style: subtitle),
                   ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Text('Operation timeout', style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text('time limit for one expression', style: subtitle),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      left: (screenWidth - 220) / 2,
-                      right: (screenWidth - 220) / 2),
-                  child: SizedBox(
-                    width: 150,
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      maxLines: 1,
-                      maxLength: 10,
-                      autocorrect: false,
-                      cursorColor: Colors.deepPurple,
-                      decoration: InputDecoration(
-                        hintText: '3',
-                        hintStyle: TextStyle(
-                          color: HexColor(context.watch<brightessSwitch>().text)
-                              .withOpacity(0.8),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor(context
-                                  .watch<brightessSwitch>()
-                                  .text)), // Colore del bordo quando l'input è abilitato
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 12,
+                        left: (screenWidth - 220) / 2,
+                        right: (screenWidth - 220) / 2),
+                    child: SizedBox(
+                      width: 200,
+                      child: TextFormField(
+                        controller: _word,
+                        validator: (value){
+                          if(value == null || value.isEmpty || !regexForWordAndGPT.hasMatch(value) ){
+                                return 'non puoi inserire questa stringa';
+                          }
+                        },
+                        maxLines: 1,
+                        maxLength: 10,
+                        autocorrect: false,
+                        cursorColor: Colors.deepPurple,
+                        decoration: InputDecoration(
+                          hintText: 'es: virgilio',
+                          hintStyle: TextStyle(
+                            color: HexColor(context.watch<brightessSwitch>().text)
+                                .withOpacity(0.8),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: HexColor(context
+                                    .watch<brightessSwitch>()
+                                    .text)), // Colore del bordo quando l'input è abilitato
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Text('Energy threshold', style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text('sensitivity of microphone', style: subtitle),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      left: (screenWidth - 220) / 2,
-                      right: (screenWidth - 220) / 2),
-                  child: SizedBox(
-                    width: 150,
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      maxLines: 1,
-                      maxLength: 10,
-                      autocorrect: false,
-                      cursorColor: Colors.deepPurple,
-                      decoration: InputDecoration(
-                        hintText: '3500',
-                        hintStyle: TextStyle(
-                          color: HexColor(context.watch<brightessSwitch>().text)
-                              .withOpacity(0.8),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor(context
-                                  .watch<brightessSwitch>()
-                                  .text)), // Colore del bordo quando l'input è abilitato
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple),
-                        ),
-                      ),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text("Choose the volume", style: title),
                   ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Text('Energy threshold dynamic', style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text('microphone sensitivity set dynamically ',
-                      style: subtitle),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      left: (screenWidth - 80) / 2,
-                      right: (screenWidth - 80) / 2),
-                  child: Switch(
-                    value: isDynamic,
-                    onChanged: (bool value) {
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                        "The choice of volume will be considered only at startup you can change it during execution only from virgil itself ",
+                        style: subtitle,
+                        textAlign: TextAlign.left),
+                  ),
+                  Slider(
+                    inactiveColor: Colors.deepPurpleAccent[200],
+                    activeColor: Colors.deepPurple,
+                    thumbColor: Colors.deepPurpleAccent,
+                    divisions: 9,
+                    //overlayColor: MaterialStateProperty.all<Color>(Colors.white),
+                    secondaryActiveColor:
+                        HexColor(context.watch<brightessSwitch>().text),
+                    label: volume.toString(),
+                    value: volume,
+                    onChanged: (value) {
                       setState(() {
-                        isDynamic = value;
+                        volume = value;
                       });
                     },
-                    activeColor: Colors.deepPurpleAccent,
+                    min: 10,
+                    max: 100,
                   ),
-                ),
-                //DA AGGIUNGERE CHEKBOX TRUE FALSE
-
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
-                  child: Divider(
-                    thickness: 4,
-                    color: Colors.deepPurpleAccent.withOpacity(0.5),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text("Choose your City", style: title),
                   ),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: (screenWidth - 100) / 2,
-                      right: (screenWidth - 100) / 2),
-                  child: Text(
-                    "API",
-                    style: divider,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                        'The city choice is only for setting a default city when running weather or temperature commands',
+                        style: subtitle,
+                        textAlign: TextAlign.left),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 8.0,
-                      left: (screenWidth - 380) / 2,
-                      right: (screenWidth - 380) / 2),
-                  child: Text(
-                    'set your API key',
-                    style: subtitle,
-                    textAlign: TextAlign.center,
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 8,
+                        left: (screenWidth - 200) / 2,
+                        right: (screenWidth - 200) / 2),
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.deepPurple)),
+                        onPressed: () async {
+                          Location location = Location();
+
+                          bool serviceEnabled;
+                          PermissionStatus permissionGranted;
+
+                          serviceEnabled = await location.serviceEnabled();
+                          if (!serviceEnabled) {
+                            serviceEnabled = await location.requestService();
+                            if (!serviceEnabled) {
+                              return;
+                            }
+                          }
+
+                          permissionGranted = await location.hasPermission();
+                          if (permissionGranted == PermissionStatus.denied) {
+                            permissionGranted =
+                                await location.requestPermission();
+                            if (permissionGranted != PermissionStatus.granted) {
+                              return;
+                            }
+                          }
+
+                          geolocator.Position position =
+                              await geolocator.Geolocator.getCurrentPosition();
+
+                          double latitude = position.latitude;
+                          double longitude = position.longitude;
+                          List<geocoding.Placemark> city = await geocoding
+                              .placemarkFromCoordinates(latitude, longitude);
+                          //print(city[0].locality);
+                        },
+                        child: const Text('Take position')),
                   ),
-                ),
 
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Text('GPT', style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text('API for GPT interaction', style: subtitle),
-                ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
+                    child: Divider(
+                      thickness: 4,
+                      color: Colors.deepPurpleAccent.withOpacity(0.5),
+                    ),
+                  ),
 
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      left: (screenWidth - 280) / 2,
-                      right: (screenWidth - 280) / 2),
-                  child: SizedBox(
-                    width: 250,
-                    child: TextField(
-                      maxLines: 1,
-                      maxLength: 52,
-                      autocorrect: false,
-                      cursorColor: Colors.deepPurple,
-                      decoration: InputDecoration(
-                        hintText: 'key',
-                        hintStyle: TextStyle(
-                          color: HexColor(context.watch<brightessSwitch>().text)
-                              .withOpacity(0.8),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor(context
-                                  .watch<brightessSwitch>()
-                                  .text)), // Colore del bordo quando l'input è abilitato
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple),
+                  Padding(
+                    padding: EdgeInsets.only(left: (screenWidth - 130) / 2),
+                    child: Text(
+                      "Listener",
+                      style: divider,
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: 8.0, left: (screenWidth - 360) / 2),
+                    child: Text(
+                      'Modify the setting of the microphone when use Virgil',
+                      style: subtitle,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: Text('Operation timeout', style: title),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text('time limit for one expression', style: subtitle),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: (screenWidth - 220) / 2,
+                        right: (screenWidth - 220) / 2),
+                    child: SizedBox(
+                      width: 150,
+                      child: TextField(
+                        controller: _timeout,
+                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        maxLength: 10,
+                        autocorrect: false,
+                        cursorColor: Colors.deepPurple,
+                        decoration: InputDecoration(
+                          hintText: '3',
+                          hintStyle: TextStyle(
+                            color: HexColor(context.watch<brightessSwitch>().text)
+                                .withOpacity(0.8),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: HexColor(context
+                                    .watch<brightessSwitch>()
+                                    .text)), // Colore del bordo quando l'input è abilitato
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Text('OpenMeteo', style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text('API for Wheather interaction', style: subtitle),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      left: (screenWidth - 280) / 2,
-                      right: (screenWidth - 280) / 2),
-                  child: SizedBox(
-                    width: 250,
-                    child: TextField(
-                      maxLines: 1,
-                      maxLength: 32,
-                      autocorrect: false,
-                      cursorColor: Colors.deepPurple,
-                      decoration: InputDecoration(
-                        hintText: 'key',
-                        hintStyle: TextStyle(
-                          color: HexColor(context.watch<brightessSwitch>().text)
-                              .withOpacity(0.8),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor(context
-                                  .watch<brightessSwitch>()
-                                  .text)), // Colore del bordo quando l'input è abilitato
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: Text('Energy threshold', style: title),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text('sensitivity of microphone', style: subtitle),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: (screenWidth - 220) / 2,
+                        right: (screenWidth - 220) / 2),
+                    child: SizedBox(
+                      width: 150,
+                      child: TextField(
+                        controller: _energy,
+                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        maxLength: 10,
+                        autocorrect: false,
+                        cursorColor: Colors.deepPurple,
+                        decoration: InputDecoration(
+                          hintText: '3500',
+                          hintStyle: TextStyle(
+                            color: HexColor(context.watch<brightessSwitch>().text)
+                                .withOpacity(0.8),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: HexColor(context
+                                    .watch<brightessSwitch>()
+                                    .text)), // Colore del bordo quando l'input è abilitato
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Text('Merros', style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text('API for domotic Merros', style: subtitle),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: Text('Energy threshold dynamic', style: title),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text('microphone sensitivity set dynamically ',
+                        style: subtitle),
+                  ),
 
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      left: (screenWidth - 280) / 2,
-                      right: (screenWidth - 280) / 2),
-                  child: SizedBox(
-                    width: 250,
-                    child: TextField(
-                      maxLines: 1,
-                      maxLength: 100,
-                      autocorrect: false,
-                      cursorColor: Colors.deepPurple,
-                      decoration: InputDecoration(
-                        hintText: 'email',
-                        hintStyle: TextStyle(
-                          color: HexColor(context.watch<brightessSwitch>().text)
-                              .withOpacity(0.8),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor(context
-                                  .watch<brightessSwitch>()
-                                  .text)), // Colore del bordo quando l'input è abilitato
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: (screenWidth - 80) / 2,
+                        right: (screenWidth - 80) / 2),
+                    child: Switch(
+                      value: isDynamic,
+                      onChanged: (bool value) {
+                        setState(() {
+                          isDynamic = value;
+                        });
+                      },
+                      activeColor: Colors.deepPurpleAccent,
+                    ),
+                  ),
+                  //DA AGGIUNGERE CHEKBOX TRUE FALSE
+
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
+                    child: Divider(
+                      thickness: 4,
+                      color: Colors.deepPurpleAccent.withOpacity(0.5),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: (screenWidth - 100) / 2,
+                        right: (screenWidth - 100) / 2),
+                    child: Text(
+                      "API",
+                      style: divider,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 8.0,
+                        left: (screenWidth - 380) / 2,
+                        right: (screenWidth - 380) / 2),
+                    child: Text(
+                      'set your API key',
+                      style: subtitle,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: Text('GPT', style: title),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text('API for GPT interaction', style: subtitle),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: (screenWidth - 280) / 2,
+                        right: (screenWidth - 280) / 2),
+                    child: SizedBox(
+                      width: 250,
+                      child: TextFormField(
+                        controller: _GPT,
+                        validator: (value){
+                          if(value == null || value.isEmpty || !regexForWordAndGPT.hasMatch(value) ){
+                            return 'inserisci una key valida';
+                          }
+                        },
+                        maxLines: 1,
+                        maxLength: 52,
+                        autocorrect: false,
+                        cursorColor: Colors.deepPurple,
+                        decoration: InputDecoration(
+                          hintText: 'key',
+                          hintStyle: TextStyle(
+                            color: HexColor(context.watch<brightessSwitch>().text)
+                                .withOpacity(0.8),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: HexColor(context
+                                    .watch<brightessSwitch>()
+                                    .text)), // Colore del bordo quando l'input è abilitato
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      left: (screenWidth - 280) / 2,
-                      right: (screenWidth - 280) / 2),
-                  child: SizedBox(
-                    width: 250,
-                    child: TextField(
-                      maxLines: 1,
-                      maxLength: 100,
-                      autocorrect: false,
-                      cursorColor: Colors.deepPurple,
-                      decoration: InputDecoration(
-                        hintText: 'password',
-                        hintStyle: TextStyle(
-                          color: HexColor(context.watch<brightessSwitch>().text)
-                              .withOpacity(0.8),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor(context
-                                  .watch<brightessSwitch>()
-                                  .text)), // Colore del bordo quando l'input è abilitato
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: Text('OpenMeteo', style: title),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text('API for Wheather interaction', style: subtitle),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: (screenWidth - 280) / 2,
+                        right: (screenWidth - 280) / 2),
+                    child: SizedBox(
+                      width: 250,
+                      child: TextFormField(
+                        controller: _meteo,
+                        validator: (value){
+                          if(value == null || value.isEmpty || !regexWheather.hasMatch(value) ){
+                            return 'inserisci una key valida';
+                          }
+                        },
+                        maxLines: 1,
+                        maxLength: 32,
+                        autocorrect: false,
+                        cursorColor: Colors.deepPurple,
+                        decoration: InputDecoration(
+                          hintText: 'key',
+                          hintStyle: TextStyle(
+                            color: HexColor(context.watch<brightessSwitch>().text)
+                                .withOpacity(0.8),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: HexColor(context
+                                    .watch<brightessSwitch>()
+                                    .text)), // Colore del bordo quando l'input è abilitato
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Text('Deeple', style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text('API for translate some interaction',
-                      style: subtitle),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: Text('Merros', style: title),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text('API for domotic Merros', style: subtitle),
+                  ),
 
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      left: (screenWidth - 280) / 2,
-                      right: (screenWidth - 280) / 2),
-                  child: SizedBox(
-                    width: 250,
-                    child: TextField(
-                      maxLines: 1,
-                      maxLength: 40,
-                      autocorrect: false,
-                      cursorColor: Colors.deepPurple,
-                      decoration: InputDecoration(
-                        hintText: 'key',
-                        hintStyle: TextStyle(
-                          color: HexColor(context.watch<brightessSwitch>().text)
-                              .withOpacity(0.8),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor(context
-                                  .watch<brightessSwitch>()
-                                  .text)), // Colore del bordo quando l'input è abilitato
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: (screenWidth - 280) / 2,
+                        right: (screenWidth - 280) / 2),
+                    child: SizedBox(
+                      width: 250,
+                      child: TextField(
+                        controller: _merrosEmail,
+                        maxLines: 1,
+                        maxLength: 100,
+                        autocorrect: false,
+                        cursorColor: Colors.deepPurple,
+                        decoration: InputDecoration(
+                          hintText: 'email',
+                          hintStyle: TextStyle(
+                            color: HexColor(context.watch<brightessSwitch>().text)
+                                .withOpacity(0.8),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: HexColor(context
+                                    .watch<brightessSwitch>()
+                                    .text)), // Colore del bordo quando l'input è abilitato
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
-                  child: Divider(
-                    thickness: 4,
-                    color: Colors.deepPurpleAccent.withOpacity(0.5),
-                  ),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: (screenWidth - 100) / 2,
-                      right: (screenWidth - 100) / 2),
-                  child: Text(
-                    "GPT",
-                    style: divider,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 8.0,
-                      left: (screenWidth - 270) / 2,
-                      right: (screenWidth - 270) / 2),
-                  child: Text(
-                    'GPT setting',
-                    style: subtitle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Text('Temperature', style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child:
-                      Text('handles randomness of responses', style: subtitle),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      left: (screenWidth - 220) / 2,
-                      right: (screenWidth - 220) / 2),
-                  child: SizedBox(
-                    width: 150,
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      maxLines: 1,
-                      maxLength: 3,
-                      autocorrect: false,
-                      cursorColor: Colors.deepPurple,
-                      decoration: InputDecoration(
-                        hintText: '0.0 - 2.0',
-                        hintStyle: TextStyle(
-                          color: HexColor(context.watch<brightessSwitch>().text)
-                              .withOpacity(0.8),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor(context
-                                  .watch<brightessSwitch>()
-                                  .text)), // Colore del bordo quando l'input è abilitato
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: (screenWidth - 280) / 2,
+                        right: (screenWidth - 280) / 2),
+                    child: SizedBox(
+                      width: 250,
+                      child: TextField(
+                        controller: _merrosPassord,
+                        maxLines: 1,
+                        maxLength: 100,
+                        autocorrect: false,
+                        cursorColor: Colors.deepPurple,
+                        decoration: InputDecoration(
+                          hintText: 'password',
+                          hintStyle: TextStyle(
+                            color: HexColor(context.watch<brightessSwitch>().text)
+                                .withOpacity(0.8),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: HexColor(context
+                                    .watch<brightessSwitch>()
+                                    .text)), // Colore del bordo quando l'input è abilitato
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Text('Max token', style: title),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                      'max lenght responses, the length of the response will cost more in the long run',
-                      style: subtitle),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: 20,
-                      left: (screenWidth - 220) / 2,
-                      right: (screenWidth - 220) / 2),
-                  child: SizedBox(
-                    width: 150,
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      maxLines: 1,
-                      maxLength: 10,
-                      autocorrect: false,
-                      cursorColor: Colors.deepPurple,
-                      decoration: InputDecoration(
-                        hintText: '30',
-                        hintStyle: TextStyle(
-                          color: HexColor(context.watch<brightessSwitch>().text)
-                              .withOpacity(0.8),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: HexColor(context
-                                  .watch<brightessSwitch>()
-                                  .text)), // Colore del bordo quando l'input è abilitato
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: Text('Deeple', style: title),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text('API for translate some interaction',
+                        style: subtitle),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: (screenWidth - 280) / 2,
+                        right: (screenWidth - 280) / 2),
+                    child: SizedBox(
+                      width: 250,
+                      child: TextFormField(
+                        controller: _deeple,
+                        validator: (value){
+                          if(value == null || value.isEmpty || !regexDeeple.hasMatch(value) ){
+                            return 'inserisci una key valida';
+                          }
+                        },
+                        maxLines: 1,
+                        maxLength: 40,
+                        autocorrect: false,
+                        cursorColor: Colors.deepPurple,
+                        decoration: InputDecoration(
+                          hintText: 'key',
+                          hintStyle: TextStyle(
+                            color: HexColor(context.watch<brightessSwitch>().text)
+                                .withOpacity(0.8),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: HexColor(context
+                                    .watch<brightessSwitch>()
+                                    .text)), // Colore del bordo quando l'input è abilitato
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
-                  child: Divider(
-                    thickness: 4,
-                    color: Colors.deepPurpleAccent.withOpacity(0.5),
-                  ),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: (screenWidth - 200) / 2,
-                      right: (screenWidth - 200) / 2,
-                      bottom: 50),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.deepPurple),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
+                    child: Divider(
+                      thickness: 4,
+                      color: Colors.deepPurpleAccent.withOpacity(0.5),
                     ),
-                    child: const Text('Default setting'),
                   ),
-                ),
-              ]),
+
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: (screenWidth - 100) / 2,
+                        right: (screenWidth - 100) / 2),
+                    child: Text(
+                      "GPT",
+                      style: divider,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 8.0,
+                        left: (screenWidth - 270) / 2,
+                        right: (screenWidth - 270) / 2),
+                    child: Text(
+                      'GPT setting',
+                      style: subtitle,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: Text('Temperature', style: title),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child:
+                        Text('handles randomness of responses', style: subtitle),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: (screenWidth - 220) / 2,
+                        right: (screenWidth - 220) / 2),
+                    child: SizedBox(
+                      width: 150,
+                      child: TextField(
+                        controller: _temperature,
+                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        maxLength: 3,
+                        autocorrect: false,
+                        cursorColor: Colors.deepPurple,
+                        decoration: InputDecoration(
+                          hintText: '0.0 - 2.0',
+                          hintStyle: TextStyle(
+                            color: HexColor(context.watch<brightessSwitch>().text)
+                                .withOpacity(0.8),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: HexColor(context
+                                    .watch<brightessSwitch>()
+                                    .text)), // Colore del bordo quando l'input è abilitato
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: Text('Max token', style: title),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                        'max lenght responses, the length of the response will cost more in the long run',
+                        style: subtitle),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: (screenWidth - 220) / 2,
+                        right: (screenWidth - 220) / 2),
+                    child: SizedBox(
+                      width: 150,
+                      child: TextField(
+                        controller: _maxtoken,
+                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        maxLength: 10,
+                        autocorrect: false,
+                        cursorColor: Colors.deepPurple,
+                        decoration: InputDecoration(
+                          hintText: '30',
+                          hintStyle: TextStyle(
+                            color: HexColor(context.watch<brightessSwitch>().text)
+                                .withOpacity(0.8),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: HexColor(context
+                                    .watch<brightessSwitch>()
+                                    .text)), // Colore del bordo quando l'input è abilitato
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.deepPurple),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5),
+                    child: Divider(
+                      thickness: 4,
+                      color: Colors.deepPurpleAccent.withOpacity(0.5),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: (screenWidth - 200) / 2,
+                        right: (screenWidth - 200) / 2,
+                        bottom: 50),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.deepPurple),
+                      ),
+                      child: const Text('Default setting'),
+                    ),
+                  ),
+                ]),
+              ),
             ),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          if (formKey.currentState!.validate()) {
+            sendNewSetting();
+          }
+        },
         backgroundColor: Colors.deepPurple,
         elevation: 10,
         child: const Icon(Icons.save, color: Colors.white),
