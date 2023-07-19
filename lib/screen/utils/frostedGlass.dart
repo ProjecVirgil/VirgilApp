@@ -31,7 +31,7 @@ class frostedGlass extends StatelessWidget {
               child: Container(),
             ),
             AnimatedContainer(
-              duration: const Duration(seconds: 1),
+              duration: const Duration(milliseconds: 500),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: HexColor(context.watch<brightessSwitch>().text).withOpacity(0.13)),

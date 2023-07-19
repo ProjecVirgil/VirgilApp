@@ -71,7 +71,7 @@ class _formKeyState extends State<formKey> {
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: HexColor(context.watch<brightessSwitch>().text)),
-                  duration: const Duration(seconds: 1),
+                  duration: const Duration(milliseconds: 500),
                   child: const Text('Configure your Virgil key'))),
           Padding(
               padding: const EdgeInsets.only(top: 30, left: 20, right: 20),

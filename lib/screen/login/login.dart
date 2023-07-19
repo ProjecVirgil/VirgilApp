@@ -82,7 +82,7 @@ class _loginState extends State<login> {
           Positioned(
             bottom: -40,
             child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 1000),
+                duration: const Duration(milliseconds: 500),
                 curve: Curves.easeInOutCubicEmphasized, //DA VEDERE
                 opacity: _opacity,
                 child: Image.asset('images/shape.png',scale: 1.2,)            ),

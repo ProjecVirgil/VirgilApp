@@ -44,7 +44,7 @@ class _settingsVirgilState extends State<settingsVirgil> {
   String language = 'en';
   bool isDynamic = true;
   double volume = 100;
-  String city = 'Salerno';
+  List<geocoding.Placemark> _city = [];
 
   //REGEX
   RegExp regexForWordAndGPT = RegExp(r'^[a-zA-Z0-9\-]+$');
@@ -64,14 +64,17 @@ class _settingsVirgilState extends State<settingsVirgil> {
   sendNewSetting() async {
     var id = await readKeyFile();
     String url =
-        'http://localhost:5000/api/setting/modify/$id/';
+        'https://flask-production-bb00.up.railway.app/api/setting/modify/$id/';
     //URL VA HOSTATO O NON VA UN CAZZO
+    var headers = {
+      'Content-Type': 'application/json', // Imposta l'intestazione 'Content-Type' a 'application/json'
+    };
 
     dynamic settingUpdate = {
       "language": language,
       "wordActivation": _word.text,
       "volume": volume.toString(),
-      "city": city,
+      "city": _city[0].locality != ''   ?  _city[0].locality : 'Salerno',
       "Listener": {
         "operation_timeout": _timeout.text.toString(),
         "dynamic_energy_threshold": isDynamic.toString(),
@@ -89,7 +92,7 @@ class _settingsVirgilState extends State<settingsVirgil> {
       }
     };
     print(settingUpdate);
-    var response = await http.post(Uri.parse(url), body: jsonEncode(settingUpdate), );
+    var response = await http.post(Uri.parse(url), body: jsonEncode(settingUpdate),headers: headers, );
     print(response.body);
 
     if (response.statusCode == 200) {
@@ -132,7 +135,7 @@ class _settingsVirgilState extends State<settingsVirgil> {
             automaticallyImplyLeading: false,
             title:  AnimatedDefaultTextStyle(
                 style: GoogleFonts.ubuntu(fontSize: 20,fontWeight: FontWeight.bold,color:HexColor(context.watch<brightessSwitch>().text)),
-                duration: const Duration(seconds: 1),
+                duration: const Duration(milliseconds: 500),
                 child: const Text('Setting')
             ),            centerTitle: true,
             leading: GestureDetector(
@@ -340,7 +343,7 @@ class _settingsVirgilState extends State<settingsVirgil> {
 
                           double latitude = position.latitude;
                           double longitude = position.longitude;
-                          List<geocoding.Placemark> city = await geocoding
+                          _city = await geocoding
                               .placemarkFromCoordinates(latitude, longitude);
                           //print(city[0].locality);
                         },

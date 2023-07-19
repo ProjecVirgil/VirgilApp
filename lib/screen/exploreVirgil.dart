@@ -91,7 +91,7 @@ class _exploreState extends State<explore> {
             automaticallyImplyLeading: false,
             title:  AnimatedDefaultTextStyle(
                 style: GoogleFonts.ubuntu(fontSize: 20,fontWeight: FontWeight.bold,color:HexColor(context.watch<brightessSwitch>().text)),
-                duration: const Duration(seconds: 1),
+                duration: const Duration(milliseconds: 500),
                 child: const Text('Explore')
             ),            centerTitle: true,
             leading: GestureDetector(

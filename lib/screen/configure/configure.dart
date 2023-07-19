@@ -75,7 +75,7 @@ class _configureState extends State<configure> {
               //bottom: -60,
               bottom: 0,
               child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 365),
+                  duration: const Duration(milliseconds: 500),
                   opacity: _opacity,
                   child: Image.asset('images/shapeConfigure.png'))),
           CustomScrollView(slivers: [
@@ -87,7 +87,7 @@ class _configureState extends State<configure> {
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: HexColor(context.watch<brightessSwitch>().text)),
-                  duration: const Duration(seconds: 1),
+                  duration: const Duration(milliseconds: 500),
                   child: const Text('Configure')),
               centerTitle: true,
               leading: GestureDetector(
