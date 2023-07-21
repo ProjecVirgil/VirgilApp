@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:virgil_app/screen/utils/sideBar.dart';
 import 'package:provider/provider.dart';
@@ -128,7 +130,7 @@ class _configureState extends State<configure> {
                     Height: 400.0,
                     child: FocusScope(
                         child:
-                            Focus(focusNode: _focusNode, child: formKey())))),
+                            Focus(focusNode: _focusNode, child: const formKey())))),
           ),
         ]),
       ),
