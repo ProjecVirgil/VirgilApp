@@ -1,6 +1,6 @@
 # Virgil App
 
-## Description
+## Description 📃
 Virgil app is an app mobile created with [Dart](https://dart.dev/) and framework [Flutter](https://flutter.dev/)
 
 ## Getting Started 📋
@@ -14,7 +14,7 @@ The app born for the configuration and manage setting of part project main [Virg
 |<img src="/asset/Screen1.png" alt="Markdownify" width ="200px" > | <img src="/asset/screen3.png" alt="Markdownify" width ="200px">|
 |<img src="/asset/screen2.png" alt="Markdownify" width ="200px"> | <img src="/asset/screen4.png" alt="Markdownify" width ="200px">|
 
-## RoadMap
+## RoadMap 🎯
 
 - [x] Write the press release
 - [ ] Upgrade the method of send update setting
