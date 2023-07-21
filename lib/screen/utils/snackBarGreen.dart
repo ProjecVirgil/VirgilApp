@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -9,7 +11,8 @@ class snackBarGreen extends StatefulWidget {
   State<snackBarGreen> createState() => _snackBarGreenState();
 }
 
-class _snackBarGreenState extends State<snackBarGreen> with TickerProviderStateMixin {
+class _snackBarGreenState extends State<snackBarGreen>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return SnackBar(

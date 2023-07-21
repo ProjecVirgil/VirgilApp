@@ -89,11 +89,14 @@ class _exploreState extends State<explore> {
           SliverAppBar(
             floating: true,
             automaticallyImplyLeading: false,
-            title:  AnimatedDefaultTextStyle(
-                style: GoogleFonts.ubuntu(fontSize: 20,fontWeight: FontWeight.bold,color:HexColor(context.watch<brightessSwitch>().text)),
+            title: AnimatedDefaultTextStyle(
+                style: GoogleFonts.ubuntu(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: HexColor(context.watch<brightessSwitch>().text)),
                 duration: const Duration(milliseconds: 500),
-                child: const Text('Explore')
-            ),            centerTitle: true,
+                child: const Text('Explore')),
+            centerTitle: true,
             leading: GestureDetector(
               onTap: () {
                 _globalKey.currentState!.openDrawer();

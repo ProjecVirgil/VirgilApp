@@ -4,10 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 class CardSetting extends StatelessWidget {
   const CardSetting(
       {super.key,
-        required this.title,
-        required this.icon,
-        required this.paragraf,
-        required this.page});
+      required this.title,
+      required this.icon,
+      required this.paragraf,
+      required this.page});
 
   final String title;
   final String icon;
@@ -41,10 +41,10 @@ class CardSetting extends StatelessWidget {
                   top: 10,
                   left: 20,
                   child: Padding(
-                    padding: const EdgeInsets.only(top:10.0,left: 10),
+                    padding: const EdgeInsets.only(top: 10.0, left: 10),
                     child: Image.asset(
                       icon,
-                      width:screenWidth/8 ,
+                      width: screenWidth / 8,
                     ),
                   ),
                 ),
@@ -54,10 +54,9 @@ class CardSetting extends StatelessWidget {
                   child: Text(
                     title,
                     style: GoogleFonts.openSans(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                        color: Colors.white
-                    ),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
 
@@ -75,7 +74,9 @@ class CardSetting extends StatelessWidget {
                         child: Text(
                           paragraf,
                           style: GoogleFonts.montserrat(
-                              fontSize: 12, fontWeight: FontWeight.w500,color: Colors.white),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
                         ),
                       )),
                 ),

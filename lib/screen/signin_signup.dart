@@ -3,7 +3,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:virgil_app/screen/login/login.dart';
 import 'package:virgil_app/screen/signup/signup.dart';
 
-
 // ignore: camel_case_types
 class signin_signup extends StatefulWidget {
   const signin_signup({super.key});
@@ -20,7 +19,7 @@ class _signin_signupState extends State<signin_signup> {
       body: DefaultTabController(
         length: 2,
         child: Scaffold(
-          body: const TabBarView(children: [ login(),signup()]),
+          body: const TabBarView(children: [login(), signup()]),
           bottomNavigationBar: SizedBox(
             width: 200,
             height: 50,

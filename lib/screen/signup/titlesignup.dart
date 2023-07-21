@@ -13,9 +13,7 @@ class titleSignup extends StatelessWidget {
           left: 40,
           child: Text('Welcome',
               style: GoogleFonts.ptSans(
-                  fontSize: 40, fontWeight: FontWeight.bold)
-          )
-      ),
+                  fontSize: 40, fontWeight: FontWeight.bold))),
       Positioned(
         top: 140,
         left: 40,

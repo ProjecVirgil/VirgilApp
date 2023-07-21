@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:virgil_app/RouteGenerator.dart';
-import 'package:virgil_app/screen/settinAcc.dart';
-import 'package:virgil_app/screen/settingsVirgil.dart';
 import 'package:virgil_app/screen/signin_signup.dart';
 import 'package:virgil_app/screen/home.dart';
 import 'package:virgil_app/screen/utils/auth.dart';

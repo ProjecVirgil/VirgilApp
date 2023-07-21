@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:virgil_app/screen/signup/formsignup.dart';
 import 'package:virgil_app/screen/signup/titlesignup.dart';
@@ -27,14 +29,13 @@ class _signupState extends State<signup> {
     super.dispose();
   }
 
-
   void _onFocusChange() {
     setState(() {
       // Aggiorna lo stato di focus
       focus = _focusNode.hasFocus;
-      if(focus){
+      if (focus) {
         _opacity = 0;
-      }else{
+      } else {
         _opacity = 1;
       }
     });
@@ -86,8 +87,10 @@ class _signupState extends State<signup> {
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOutCubicEmphasized, //DA VEDERE
                   opacity: _opacity,
-                  child: Image.asset('images/shape.png',scale: 1.2,)
-              ),
+                  child: Image.asset(
+                    'images/shape.png',
+                    scale: 1.2,
+                  )),
             )
           ],
         ),

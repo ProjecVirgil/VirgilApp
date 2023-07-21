@@ -5,7 +5,6 @@ import 'package:virgil_app/screen/utils/frostedGlass.dart';
 import 'package:virgil_app/screen/login/titleLogin.dart';
 import 'package:virgil_app/screen/login/formLogin.dart';
 
-
 class login extends StatefulWidget {
   const login({super.key});
 
@@ -33,9 +32,9 @@ class _loginState extends State<login> {
     setState(() {
       // Aggiorna lo stato di focus
       focus = _focusNode.hasFocus;
-      if(focus){
+      if (focus) {
         _opacity = 0;
-      }else{
+      } else {
         _opacity = 1;
       }
     });
@@ -59,21 +58,19 @@ class _loginState extends State<login> {
           ListView(
               shrinkWrap: true,
               padding: const EdgeInsets.only(top: 200),
-              children:  [
+              children: [
                 Center(
                   child: GestureDetector(
                     onTap: () {
                       // Rimuovi il focus dagli elementi di input
                       _focusNode.unfocus();
                     },
-                    child:  frostedGlass(
+                    child: frostedGlass(
                       Width: 350.0,
                       Height: 400.0,
                       child: FocusScope(
                         child: Focus(
-                            focusNode: _focusNode,
-                            child: const formLogin()
-                        ),
+                            focusNode: _focusNode, child: const formLogin()),
                       ),
                     ),
                   ),
@@ -85,7 +82,10 @@ class _loginState extends State<login> {
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.easeInOutCubicEmphasized, //DA VEDERE
                 opacity: _opacity,
-                child: Image.asset('images/shape.png',scale: 1.2,)            ),
+                child: Image.asset(
+                  'images/shape.png',
+                  scale: 1.2,
+                )),
           )
         ]),
       ),

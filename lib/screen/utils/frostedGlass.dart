@@ -12,6 +12,7 @@ class frostedGlass extends StatelessWidget {
       required this.Width,
       required this.Height,
       required this.child});
+
   final Width;
   final Height;
   final child;
@@ -34,13 +35,17 @@ class frostedGlass extends StatelessWidget {
               duration: const Duration(milliseconds: 500),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: HexColor(context.watch<brightessSwitch>().text).withOpacity(0.13)),
+                  border: Border.all(
+                      color: HexColor(context.watch<brightessSwitch>().text)
+                          .withOpacity(0.13)),
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        HexColor(context.watch<brightessSwitch>().text).withOpacity(0.15),
-                        HexColor(context.watch<brightessSwitch>().text).withOpacity(0.05),
+                        HexColor(context.watch<brightessSwitch>().text)
+                            .withOpacity(0.15),
+                        HexColor(context.watch<brightessSwitch>().text)
+                            .withOpacity(0.05),
                       ])),
             ),
             Center(

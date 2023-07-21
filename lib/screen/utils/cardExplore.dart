@@ -3,20 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class cardExplore extends StatelessWidget {
-  const cardExplore({super.key,
-    required this.title,
-    required this.subtitle,
-    required this.pathImage,
-    required this.icon
-  });
+  const cardExplore(
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      required this.pathImage,
+      required this.icon});
 
   final IconData icon;
   final String title;
   final String subtitle;
   final String pathImage;
-
 
   final double _heightCard = 200.0;
   final double _widthCard = 400.0;
@@ -32,7 +30,8 @@ class cardExplore extends StatelessWidget {
             color: Colors.deepPurple.withOpacity(1),
             spreadRadius: 2,
             blurRadius: 2,
-            offset: const Offset(2, 2), // Cambia l'offset per regolare la posizione dell'ombra
+            offset: const Offset(
+                2, 2), // Cambia l'offset per regolare la posizione dell'ombra
           ),
         ],
         border: Border.all(
@@ -60,14 +59,15 @@ class cardExplore extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 14.0,top: 13),
+              padding: const EdgeInsets.only(left: 14.0, top: 13),
               child: Stack(
                 children: [
                   Row(
                     children: [
                       Text(
                         title,
-                        style: GoogleFonts.ptSans(fontSize: 25,fontWeight: FontWeight.bold),
+                        style: GoogleFonts.ptSans(
+                            fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
@@ -82,8 +82,8 @@ class cardExplore extends StatelessWidget {
                       height: 100,
                       child: Text(
                         subtitle,
-                          style: GoogleFonts.ubuntu(fontSize: 13,fontWeight: FontWeight.normal),
-
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 13, fontWeight: FontWeight.normal),
                       ),
                     ),
                   )
@@ -96,4 +96,3 @@ class cardExplore extends StatelessWidget {
     );
   }
 }
-

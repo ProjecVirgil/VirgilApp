@@ -53,9 +53,9 @@ class _settingsVirgilState extends State<settingsVirgil>
 
   //REGEX
   RegExp regexForWord = RegExp(r'^[a-zA-Z0-9\-]+$');
-  RegExp regexForGPT = RegExp(r'^[a-zA-Z0-9\-]{52}$');
+  RegExp regexForGPT = RegExp(r'^[a-zA-Z0-9\-]{51}$');
   RegExp regexWheather = RegExp(r'^[0-9A-Fa-f]{32}$');
-  RegExp regexDeeple = RegExp(r'^[a-z0-9:]{40}$');
+  RegExp regexDeeple = RegExp(r'^[a-z0-9:-]{39}$');
 
   Future<String> readKeyFile() async {
     Directory directory = await getApplicationDocumentsDirectory();
@@ -125,7 +125,6 @@ class _settingsVirgilState extends State<settingsVirgil>
     Size screenSize = MediaQuery.of(context).size;
     double screenWidth = screenSize.width;
     //double screenHeight = screenSize.height;
-
     return MaterialApp(
       onGenerateRoute: RouteGenerator.generateRoute, //DINAMICO
       scaffoldMessengerKey: _messengerKey,
@@ -558,7 +557,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                               if (value == null ||
                                   value.isEmpty ||
                                   !regexForGPT.hasMatch(value)) {
-                                 _scrollController.animateTo(
+                                _scrollController.animateTo(
                                   1200,
                                   duration: const Duration(milliseconds: 500),
                                   curve: Curves.easeInOut,
@@ -947,7 +946,8 @@ class _settingsVirgilState extends State<settingsVirgil>
                                     duration: const Duration(milliseconds: 500),
                                     // Durata dell'animazione
                                     vsync: this),
-                                curve: Curves.easeInOutQuart, // Curva dell'animazione);
+                                curve: Curves
+                                    .easeInOutQuart, // Curva dell'animazione);
                               ),
                               duration: const Duration(seconds: 2),
                               content: Text(
@@ -958,8 +958,8 @@ class _settingsVirgilState extends State<settingsVirgil>
                                     color: Colors.white),
                               ),
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(20), // Imposta il valore del raggio
+                                borderRadius: BorderRadius.circular(
+                                    20), // Imposta il valore del raggio
                               ),
                               action: SnackBarAction(
                                 textColor: Colors.white,

@@ -3,10 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:virgil_app/screen/utils/auth.dart';
 
-
-
-
-
 bool containsUpperCase(String str) {
   return str
       .split('')
@@ -14,7 +10,26 @@ bool containsUpperCase(String str) {
 }
 
 bool containsBlackList(String str) {
-  List<String> blackList = ['/', '&', '|', '<', '>', '-', ';', '"', "'", "%", ")", "]", "(", "[", "{", "}", " ", '*'];
+  List<String> blackList = [
+    '/',
+    '&',
+    '|',
+    '<',
+    '>',
+    '-',
+    ';',
+    '"',
+    "'",
+    "%",
+    ")",
+    "]",
+    "(",
+    "[",
+    "{",
+    "}",
+    " ",
+    '*'
+  ];
   for (var i = 0; i < str.length; i++) {
     for (var char in str.split('')) {
       if (blackList.contains(char)) {
@@ -24,7 +39,6 @@ bool containsBlackList(String str) {
   }
   return false;
 }
-
 
 String checker(String str) {
   List<String> listNumber = ['1', "2", "3", "4", "5", "6", "7", "8", "9", "0"];
@@ -98,7 +112,7 @@ class _formsignupState extends State<formsignup> {
               //VALIDATE
               maxLength: 100,
               maxLines: 1,
-              controller:  _email,
+              controller: _email,
               textInputAction: TextInputAction.next,
               validator: (value) {
                 if (value == null || value.isEmpty || !value.contains('@')) {

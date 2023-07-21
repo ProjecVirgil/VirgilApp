@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:virgil_app/screen/configure/configure.dart';
 import 'package:virgil_app/screen/home.dart';

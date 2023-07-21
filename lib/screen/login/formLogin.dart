@@ -85,9 +85,8 @@ class _formLoginState extends State<formLogin> {
           _notExist = false;
           _disable = false;
         });
-      } else if (error
-          .toString()
-          .contains("We have blocked all requests from this device due to unusual activity.")) {
+      } else if (error.toString().contains(
+          "We have blocked all requests from this device due to unusual activity.")) {
         setState(() {
           _disable = true;
           _passwordInvalid = false;
@@ -162,6 +161,7 @@ class _formLoginState extends State<formLogin> {
                         containsBlackList(value)) {
                       return "Password not valid";
                     }
+                    return null;
                   },
                   //STYLE
                   cursorColor: Colors.white,

@@ -1,4 +1,3 @@
-
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
@@ -8,8 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:virgil_app/screen/utils/auth.dart';
 import 'package:virgil_app/screen/utils/swtichBrightness.dart';
 
-
-
 class sideBar extends StatefulWidget {
   const sideBar({super.key});
 
@@ -18,11 +15,9 @@ class sideBar extends StatefulWidget {
 }
 
 class _sideBarState extends State<sideBar> {
-
   Future<void> esci() async {
     await Auth().signOut();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +26,7 @@ class _sideBarState extends State<sideBar> {
     double screenWidth = screenSize.width;
     //double screenHeight = screenSize.height;
 
-    return  Drawer(
+    return Drawer(
       width: screenWidth / 2,
       backgroundColor: HexColor(context.watch<brightessSwitch>().background),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -148,9 +143,9 @@ class _sideBarState extends State<sideBar> {
             ),
           ),
           GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, 'configure');
-              },
+            onTap: () {
+              Navigator.pushNamed(context, 'configure');
+            },
             child: Padding(
               padding: const EdgeInsets.only(top: 30.0, left: 20.0),
               child: Row(
@@ -199,7 +194,9 @@ class _sideBarState extends State<sideBar> {
             ),
           ),
           GestureDetector(
-            onTap: () {Navigator.pushNamed(context, 'settingAcc');},
+            onTap: () {
+              Navigator.pushNamed(context, 'settingAcc');
+            },
             child: Padding(
               padding: const EdgeInsets.only(top: 380.0, left: 20.0),
               child: Row(

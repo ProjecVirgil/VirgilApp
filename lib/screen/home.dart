@@ -98,7 +98,8 @@ class _homeState extends State<home> {
                             fontWeight: FontWeight.w600,
                             color: HexColor(
                                 context.watch<brightessSwitch>().text)),
-                        duration: const Duration(milliseconds: 500),                        child: const Text(
+                        duration: const Duration(milliseconds: 500),
+                        child: const Text(
                             'Hi now that you are in you can configure and set up your Virgilio whenever and wherever you want first I suggest you configure virgilio via the token and then start exploring all you can do '),
                       )),
                 ),
@@ -126,7 +127,8 @@ class _homeState extends State<home> {
               Positioned(
                 bottom: 0,
                 child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 500),                    curve: Curves.decelerate,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.decelerate,
                     width: screenWidth,
                     height: _height,
                     decoration: BoxDecoration(

@@ -53,6 +53,7 @@ class _configureState extends State<configure> {
     // Rimuovi il focus dagli elementi di input
     _focusNode.unfocus();
   }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -129,8 +130,8 @@ class _configureState extends State<configure> {
                     Width: 350.0,
                     Height: 400.0,
                     child: FocusScope(
-                        child:
-                            Focus(focusNode: _focusNode, child: const formKey())))),
+                        child: Focus(
+                            focusNode: _focusNode, child: const formKey())))),
           ),
         ]),
       ),
