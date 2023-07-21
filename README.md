@@ -13,8 +13,8 @@ The app born for the configuration and manage setting of part project main [Virg
 ## Some screen of the App
 
 
-|<img src="/asset/Screen1.png" alt="Markdownify" width ="200px" height = "200px"  > | <img src="/asset/screen3.png" alt="Markdownify" width ="200px" height = "200px" >|
-|<img src="/asset/screen2.png" alt="Markdownify" width ="200px" height = "200px" > | <img src="/asset/screen4.png" alt="Markdownify" width ="200px" height = "200px" >|
+|<img src="/asset/Screen1.png" alt="Markdownify" width ="200px" height = "500px"  > | <img src="/asset/screen3.png" alt="Markdownify" width ="200px" height = "500px" >|
+|<img src="/asset/screen2.png" alt="Markdownify" width ="200px" height = "500px" > | <img src="/asset/screen4.png" alt="Markdownify" width ="200px" height = "500px" >|
 
 
 
