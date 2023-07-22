@@ -1,5 +1,8 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
+import 'dart:core';
+import 'dart:core';
+import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -44,7 +47,7 @@ class _settingsVirgilState extends State<settingsVirgil>
   final TextEditingController _temperature = TextEditingController();
   final TextEditingController _maxtoken = TextEditingController();
   final TextEditingController _meteo = TextEditingController();
-
+  final TextEditingController _Eleven = TextEditingController();
   //VALORI SETING
   String language = 'en';
   bool isDynamic = true;
@@ -52,10 +55,9 @@ class _settingsVirgilState extends State<settingsVirgil>
   List<geocoding.Placemark> _city = [];
 
   //REGEX
-  RegExp regexForWord = RegExp(r'^[a-zA-Z0-9\-]+$');
-  RegExp regexForGPT = RegExp(r'^[a-zA-Z0-9\-]{51}$');
-  RegExp regexWheather = RegExp(r'^[0-9A-Fa-f]{32}$');
-  RegExp regexDeeple = RegExp(r'^[a-z0-9:-]{39}$');
+  RegExp regexForazAZ09 =  RegExp(r'^[a-zA-Z0-9-]*$');
+  RegExp regex09afAF32 = RegExp(r'^[0-9A-Fa-f]{32}|^$');
+  RegExp regexaz0939 = RegExp(r'^[a-z0-9:-]{39}|^$');
 
   Future<String> readKeyFile() async {
     Directory directory = await getApplicationDocumentsDirectory();
@@ -74,36 +76,32 @@ class _settingsVirgilState extends State<settingsVirgil>
       // Imposta l'intestazione 'Content-Type' a 'application/json'
     };
 
+
     dynamic settingUpdate = {
-      "language": language,
-      "wordActivation": _word.text,
-      "volume": volume.toString(),
-      "city": _city.isNotEmpty &&
-              _city[0].locality != null &&
-              _city[0].locality != ''
-          ? _city[0].locality
-          : 'Salerno',
-      "Listener": {
+        "language": language,
+        "wordActivation": _word.text,
+        "volume": volume.toString(),
+        "city": _city[0].locality,
         "operation_timeout": _timeout.text.toString(),
         "dynamic_energy_threshold": isDynamic.toString(),
         "energy_threshold": _energy.text.toString(),
-      },
-      "api": {
+        "elevenlabs": _Eleven.text,
         "openAI": _GPT.text,
         "weather": _meteo.text,
-        "merros": [_merrosEmail.text, _merrosPassord.text],
+        "merrosEmail": _merrosEmail.text,
+        "merrosPassword":_merrosPassord.text,
         "deeple": _deeple.text,
-      },
-      "GPT": {
         "temperature": _temperature.text.toString(),
         "max_tokens": _maxtoken.text.toString(),
-      }
     };
+
+
     await http.post(
       Uri.parse(url),
       body: jsonEncode(settingUpdate),
       headers: headers,
     );
+
   }
 
   // Resto del tuo codice...
@@ -247,9 +245,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                         child: TextFormField(
                           controller: _word,
                           validator: (value) {
-                            if (value == null ||
-                                value.isEmpty ||
-                                !regexForWord.hasMatch(value)) {
+                            if (!regexForazAZ09.hasMatch(value!)) {
                               _scrollController.animateTo(
                                 0,
                                 duration: const Duration(milliseconds: 500),
@@ -554,9 +550,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                           child: TextFormField(
                             controller: _GPT,
                             validator: (value) {
-                              if (value == null ||
-                                  value.isEmpty ||
-                                  !regexForGPT.hasMatch(value)) {
+                              if (!regexForazAZ09.hasMatch(value!)) {
                                 _scrollController.animateTo(
                                   1200,
                                   duration: const Duration(milliseconds: 500),
@@ -592,6 +586,64 @@ class _settingsVirgilState extends State<settingsVirgil>
                         ),
                       ),
                     ),
+
+
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: Text('ElevenLabs', style: title),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text('API for TTS not obligatory', style: subtitle),
+                    ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 20,
+                        ),
+                        child: SizedBox(
+                          width: 250,
+                          child: TextFormField(
+                            controller: _Eleven,
+                            validator: (value) {
+                              if (!regex09afAF32.hasMatch(value!)) {
+                                _scrollController.animateTo(
+                                  1200,
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut,
+                                );
+                                return 'inserisci una key valida';
+                              }
+                              return null;
+                            },
+                            maxLines: 1,
+                            maxLength: 32,
+                            autocorrect: false,
+                            cursorColor: Colors.deepPurple,
+                            decoration: InputDecoration(
+                              hintText: 'key',
+                              hintStyle: TextStyle(
+                                color: HexColor(
+                                    context.watch<brightessSwitch>().text)
+                                    .withOpacity(0.8),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: HexColor(context
+                                        .watch<brightessSwitch>()
+                                        .text)), // Colore del bordo quando l'input è abilitato
+                              ),
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Colors.deepPurple),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+
                     Padding(
                       padding: const EdgeInsets.only(top: 18.0),
                       child: Text('OpenMeteo', style: title),
@@ -611,9 +663,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                           child: TextFormField(
                             controller: _meteo,
                             validator: (value) {
-                              if (value == null ||
-                                  value.isEmpty ||
-                                  !regexWheather.hasMatch(value)) {
+                              if (!regex09afAF32.hasMatch(value!)) {
                                 _scrollController.animateTo(
                                   1200,
                                   duration: const Duration(milliseconds: 500),
@@ -746,9 +796,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                           child: TextFormField(
                             controller: _deeple,
                             validator: (value) {
-                              if (value == null ||
-                                  value.isEmpty ||
-                                  !regexDeeple.hasMatch(value)) {
+                              if (!regexaz0939.hasMatch(value!)) {
                                 _scrollController.animateTo(
                                   1500,
                                   duration: const Duration(milliseconds: 500),
@@ -924,6 +972,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                             _word.text = 'Virgilio';
                             _timeout.text = '3';
                             _energy.text = '3500';
+                            _Eleven.text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
                             _GPT.text =
                                 'sk-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
                             _deeple.text =
