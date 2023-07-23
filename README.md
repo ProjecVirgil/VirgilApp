@@ -17,7 +17,7 @@ The app born for the configuration and manage setting of part project main [Virg
 ## RoadMap 🎯
 
 - [x] Write the press release
-- [ ] Upgrade the method of send update setting
+- [X] Upgrade the method of send update setting
 - [ ] Add new setting for the manage of personal account
 - [ ] Improve the design and the visual feedback
 
