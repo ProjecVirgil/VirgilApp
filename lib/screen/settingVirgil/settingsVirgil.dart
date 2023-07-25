@@ -228,8 +228,8 @@ class _settingsVirgilState extends State<settingsVirgil>
                     child: Padding(
                         padding: const EdgeInsets.all(10),
                         child:
-                            context.watch<brightessSwitch>().background == '#303030'
-                                ? Image.asset('images/Icons/menusWhite.png')
+                        context.watch<brightessSwitch>().background == '#121212'
+                            ? Image.asset('images/Icons/menusWhite.png')
                                 : Image.asset('images/Icons/menusBlack.png')),
                   ),
                   elevation: 0,

@@ -12,9 +12,17 @@ class sideBar extends StatefulWidget {
 
   @override
   State<sideBar> createState() => _sideBarState();
+
+
+
+
 }
 
 class _sideBarState extends State<sideBar> {
+
+  final double SPACE_ORZ=50;
+  final double Icon_SIZE = 25;
+  final double SPACE_VER = 15;
   Future<void> esci() async {
     await Auth().signOut();
   }
@@ -33,7 +41,7 @@ class _sideBarState extends State<sideBar> {
       clipBehavior: Clip.hardEdge,
       child: SizedBox.expand(
         child: ListView(
-        physics: const NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,17 +69,18 @@ class _sideBarState extends State<sideBar> {
                     )),
               ],
             ),
+
             Padding(
-              padding: const EdgeInsets.only(top: 30.0, left: 20.0),
+              padding:  EdgeInsets.only(top: SPACE_ORZ, left: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Image.asset(
                     'images/Icons/brightnessGrey.png',
-                    width: 20,
+                    width: Icon_SIZE,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding:EdgeInsets.only(left: SPACE_VER),
                     child: Switch(
                       value: isDark,
                       onChanged: (bool value) {
@@ -90,21 +99,22 @@ class _sideBarState extends State<sideBar> {
                 ],
               ),
             ),
+
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, 'home');
               },
               child: Padding(
-                padding: const EdgeInsets.only(top: 20.0, left: 20.0),
+                padding:  EdgeInsets.only(top: SPACE_ORZ, left: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image.asset(
                       'images/Icons/homeGrey.png',
-                      width: 20,
+                      width: Icon_SIZE,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                      padding:  EdgeInsets.only(left: SPACE_VER),
                       child: Text(
                         'Home',
                         style: GoogleFonts.ibmPlexSans(
@@ -122,16 +132,16 @@ class _sideBarState extends State<sideBar> {
                 Navigator.pushNamed(context, 'settings');
               },
               child: Padding(
-                padding: const EdgeInsets.only(top: 30.0, left: 20.0),
+                padding:  EdgeInsets.only(top: SPACE_ORZ, left: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image.asset(
                       'images/Icons/setting-linesGrey.png',
-                      width: 20,
+                      width: Icon_SIZE,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                      padding:EdgeInsets.only(left: SPACE_VER),
                       child: Text(
                         'Virgil setting',
                         style: GoogleFonts.ibmPlexSans(
@@ -149,13 +159,13 @@ class _sideBarState extends State<sideBar> {
                 Navigator.pushNamed(context, 'configure');
               },
               child: Padding(
-                padding: const EdgeInsets.only(top: 30.0, left: 20.0),
+                padding:  EdgeInsets.only(top: SPACE_ORZ, left: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.asset('images/Icons/configurationGrey.png', width: 20),
+                    Image.asset('images/Icons/configurationGrey.png', width: Icon_SIZE),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                      padding:EdgeInsets.only(left: SPACE_VER),
                       child: Text(
                         'Configure',
                         style: GoogleFonts.ibmPlexSans(
@@ -173,16 +183,16 @@ class _sideBarState extends State<sideBar> {
                 Navigator.pushNamed(context, 'explore');
               },
               child: Padding(
-                padding: const EdgeInsets.only(top: 30.0, left: 20.0),
+                padding:  EdgeInsets.only(top: SPACE_ORZ, left: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image.asset(
                       'images/Icons/compassGrey.png',
-                      width: 20,
+                      width: Icon_SIZE,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                      padding:EdgeInsets.only(left: SPACE_VER),
                       child: Text(
                         'Explore Virgil',
                         style: GoogleFonts.ibmPlexSans(
@@ -200,13 +210,13 @@ class _sideBarState extends State<sideBar> {
                 Navigator.pushNamed(context, 'settingAcc');
               },
               child: Padding(
-                padding:  const EdgeInsets.only(top:30 , left: 20.0),
+                padding:  EdgeInsets.only(top: SPACE_ORZ, left: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.asset('images/Icons/profile.png', width: 20),
+                    Image.asset('images/Icons/profile.png', width: Icon_SIZE),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                      padding:EdgeInsets.only(left: SPACE_VER),
                       child: Text(
                         'Account',
                         style: GoogleFonts.ibmPlexSans(
@@ -219,15 +229,15 @@ class _sideBarState extends State<sideBar> {
                 ),
               ),
             ),
-            SizedBox(height: screenHeight / 2.5),
+            SizedBox(height: screenHeight / 4),
             Padding(
-              padding:  const EdgeInsets.only(top: 10, left: 20.0),
+              padding:  const EdgeInsets.only(left: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset('images/Icons/logoutGrey.png', width: 20),
+                  Image.asset('images/Icons/logoutGrey.png', width: Icon_SIZE),
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding:EdgeInsets.only(left: SPACE_VER),
                     child: TextButton(
                         onPressed: () {
                           esci();

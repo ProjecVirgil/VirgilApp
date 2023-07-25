@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:virgil_app/screen/login/login.dart';
 import 'package:virgil_app/screen/signup/signup.dart';
+
+import 'utils/swtichBrightness.dart';
 
 // ignore: camel_case_types
 class signin_signup extends StatefulWidget {
@@ -24,7 +27,7 @@ class _signin_signupState extends State<signin_signup> {
             width: 200,
             height: 50,
             child: Container(
-              color: HexColor('1f1f1f'),
+              color: HexColor(context.watch<brightessSwitch>().background),
               child: const TabBar(
                   //MODIFY STYLE
                   indicatorWeight: 4,

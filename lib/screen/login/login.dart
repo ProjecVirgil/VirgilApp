@@ -1,9 +1,13 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:virgil_app/screen/utils/frostedGlass.dart';
 import 'package:virgil_app/screen/login/titleLogin.dart';
 import 'package:virgil_app/screen/login/formLogin.dart';
+
+import '../utils/swtichBrightness.dart';
 
 class login extends StatefulWidget {
   const login({super.key});
@@ -53,45 +57,49 @@ class _loginState extends State<login> {
     Size screenSize = MediaQuery.of(context).size;
     double screenWidth = screenSize.width;
     double screenHeight = screenSize.height;
+
     return GestureDetector(
       onTap: _handleScreenTap,
       child: Scaffold(
-        body: Stack(children: [
-          Positioned(
-            bottom: -40,
-            child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 1000),
-                curve: Curves.easeInOutCubicEmphasized, //DA VEDERE
-                opacity: _opacity,
-                child: Image.asset(
-                  'images/shape.webp',
-                  width: screenSize.width,
-                )),
-          ),
-          const titleLogin(),
-          ListView(
-              shrinkWrap: true,
-              padding: const EdgeInsets.only(top: 200),
-              children: [
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      // Rimuovi il focus dagli elementi di input
-                      _focusNode.unfocus();
-                    },
-                    child: frostedGlass(
-                      Width: screenWidth - 50,
-                      Height: screenHeight/2,
-                      child: FocusScope(
-                        child: Focus(
-                            focusNode: _focusNode, child: const formLogin()),
+        body: AnimatedContainer(
+          duration: const Duration(milliseconds: 500),
+          color: HexColor(context.watch<brightessSwitch>().background),
+          child: Stack(children: [
+            Positioned(
+              bottom: -40,
+              child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 1000),
+                  curve: Curves.easeInOutCubicEmphasized, //DA VEDERE
+                  opacity: _opacity,
+                  child: Image.asset(
+                    'images/shape.webp',
+                    width: screenSize.width,
+                  )),
+            ),
+            const titleLogin(),
+            ListView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.only(top: 200),
+                children: [
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        // Rimuovi il focus dagli elementi di input
+                        _focusNode.unfocus();
+                      },
+                      child: frostedGlass(
+                        Width: screenWidth - 50,
+                        Height: screenHeight/2,
+                        child: FocusScope(
+                          child: Focus(
+                              focusNode: _focusNode, child: const formLogin()),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ]),
-
-        ]),
+                ]),
+          ]),
+        ),
       ),
     );
   }
