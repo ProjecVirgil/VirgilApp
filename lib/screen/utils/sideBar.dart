@@ -22,7 +22,7 @@ class _sideBarState extends State<sideBar> {
 
   final double SPACE_ORZ=50;
   final double Icon_SIZE = 25;
-  final double SPACE_VER = 15;
+  final double SPACE_VER = 13;
   Future<void> esci() async {
     await Auth().signOut();
   }
@@ -229,7 +229,7 @@ class _sideBarState extends State<sideBar> {
                 ),
               ),
             ),
-            SizedBox(height: screenHeight / 4),
+            SizedBox(height: screenHeight - 650),
             Padding(
               padding:  const EdgeInsets.only(left: 20.0),
               child: Row(
