@@ -7,9 +7,7 @@ import 'package:virgil_app/screen/utils/swtichBrightness.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
-import 'package:permission_handler/permission_handler.dart';
 import "package:path_provider/path_provider.dart";
-import 'dart:convert';
 
 class formKey extends StatefulWidget {
   const formKey({super.key});
@@ -36,19 +34,37 @@ class _formKeyState extends State<formKey> {
     }
   }
 
-  Future<void> requestFilePermissions() async {
-    PermissionStatus status = await Permission.storage.status;
-    await Permission.storage.request();
-    if (!status.isGranted) {
-      await Permission.storage.request();
-    }
-  }
 
   Future<void> writeKeyFile({required String key}) async {
     Directory directory = await getApplicationDocumentsDirectory();
     String filePath = '${directory.path}/key.txt';
     File file = File(filePath);
     await file.writeAsString(key);
+  }
+
+  Future<String> readKeyFile() async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    String filePath = '${directory.path}/key.txt';
+    File file = File(filePath);
+    var id = await file.readAsString();
+    return id;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeSettings();
+  }
+
+
+  // Funzione per inizializzare le impostazioni
+  void _initializeSettings() async {
+    var currentKey = await readKeyFile();
+    setState(() {
+      setState(() {
+        _key.text = currentKey;
+      });
+    });
   }
 
   double _opacity = 0;

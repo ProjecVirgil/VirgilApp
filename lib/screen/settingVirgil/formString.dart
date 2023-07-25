@@ -29,6 +29,7 @@ class formStringAPI extends StatelessWidget {
         child: SizedBox(
           width: 250,
           child: TextFormField(
+            style : TextStyle(color: HexColor(context.watch<brightessSwitch>().text)),
             controller: controller,
             validator: (value) {
               if (!regex.hasMatch(value!)) {

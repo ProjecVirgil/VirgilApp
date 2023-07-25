@@ -50,10 +50,24 @@ class _loginState extends State<login> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double screenWidth = screenSize.width;
+    double screenHeight = screenSize.height;
     return GestureDetector(
       onTap: _handleScreenTap,
       child: Scaffold(
         body: Stack(children: [
+          Positioned(
+            bottom: -40,
+            child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 1000),
+                curve: Curves.easeInOutCubicEmphasized, //DA VEDERE
+                opacity: _opacity,
+                child: Image.asset(
+                  'images/shape.webp',
+                  width: screenSize.width,
+                )),
+          ),
           const titleLogin(),
           ListView(
               shrinkWrap: true,
@@ -66,8 +80,8 @@ class _loginState extends State<login> {
                       _focusNode.unfocus();
                     },
                     child: frostedGlass(
-                      Width: 350.0,
-                      Height: 400.0,
+                      Width: screenWidth - 50,
+                      Height: screenHeight/2,
                       child: FocusScope(
                         child: Focus(
                             focusNode: _focusNode, child: const formLogin()),
@@ -76,17 +90,7 @@ class _loginState extends State<login> {
                   ),
                 ),
               ]),
-          Positioned(
-            bottom: -40,
-            child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOutCubicEmphasized, //DA VEDERE
-                opacity: _opacity,
-                child: Image.asset(
-                  'images/shape.png',
-                  scale: 1.2,
-                )),
-          )
+
         ]),
       ),
     );

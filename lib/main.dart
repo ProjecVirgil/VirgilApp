@@ -36,6 +36,8 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: navigatorKey,
       title: 'Virgil app',
       theme: ThemeData(
+        splashColor: Colors.transparent, // Imposta il colore dell'effetto glow quando si tocca uno scrollable widget
+        highlightColor: Colors.transparent,
         colorScheme: ColorScheme.fromSwatch(
             brightness: Brightness.dark,
             primaryColorDark: Colors.deepPurpleAccent[600],

@@ -7,19 +7,23 @@ class titleLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Size screenSize = MediaQuery.of(context).size;
+    double screenWidth = screenSize.width;
+
     return Stack(children: [
       Positioned(
           top: 90,
           left: 40,
           child: Text('Welcome back',
               style: GoogleFonts.ptSans(
-                  fontSize: 40, fontWeight: FontWeight.bold))),
+                  fontSize: screenWidth / 10, fontWeight: FontWeight.bold))),
       Positioned(
         top: 140,
         left: 40,
         child: Text(
           'Login with your account to use Virgil',
-          style: GoogleFonts.ptSans(fontSize: 20),
+          style: GoogleFonts.ptSans(fontSize: screenWidth / 20),
         ),
       ),
     ]);

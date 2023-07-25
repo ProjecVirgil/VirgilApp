@@ -60,96 +60,102 @@ class _settingAccState extends State<settingAcc> {
         color: HexColor(context.watch<brightessSwitch>().text).withOpacity(0));
 
     return Scaffold(
-      backgroundColor: HexColor(context.watch<brightessSwitch>().background),
       key: _globalKey,
       drawer: const sideBar(),
-      body: CustomScrollView(slivers: [
-        SliverAppBar(
-          floating: true,
-          automaticallyImplyLeading: false,
-          title: AnimatedDefaultTextStyle(
-              style: GoogleFonts.ubuntu(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: HexColor(context.watch<brightessSwitch>().text)),
-              duration: const Duration(milliseconds: 500),
-              child: const Text('Account setting')),
-          centerTitle: true,
-          leading: GestureDetector(
-            onTap: () {
-              _globalKey.currentState!.openDrawer();
-            },
-            child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: context.watch<brightessSwitch>().background == '#303030'
-                    ? Image.asset('images/Icons/menusWhite.png')
-                    : Image.asset('images/Icons/menusBlack.png')),
-          ),
-          elevation: 0,
-          backgroundColor:
-              HexColor(context.watch<brightessSwitch>().background),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(1.0),
-            child: Container(
-              height: 1,
-              color: Colors
-                  .deepPurpleAccent, // Imposta il colore del bordo inferiore
-            ),
-          ),
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text(
-                'Email: $email',
+      body: AnimatedContainer(
+        color: HexColor(context.watch<brightessSwitch>().background),
+        duration: const Duration(seconds: 1),
+        child: CustomScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            slivers: [
+          SliverAppBar(
+            floating: true,
+            automaticallyImplyLeading: false,
+            title: AnimatedDefaultTextStyle(
                 style: GoogleFonts.ubuntu(
-                    fontWeight: FontWeight.bold, fontSize: 21),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: HexColor(context.watch<brightessSwitch>().text)),
+                duration: const Duration(milliseconds: 500),
+                child: const Text('Account setting')),
+            centerTitle: true,
+            leading: GestureDetector(
+              onTap: () {
+                _globalKey.currentState!.openDrawer();
+              },
+              child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: context.watch<brightessSwitch>().background == '#303030'
+                      ? Image.asset('images/Icons/menusWhite.png')
+                      : Image.asset('images/Icons/menusBlack.png')),
+            ),
+            elevation: 0,
+            backgroundColor:
+                HexColor(context.watch<brightessSwitch>().background),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(1.0),
+              child: Container(
+                height: 1,
+                color: Colors
+                    .deepPurpleAccent, // Imposta il colore del bordo inferiore
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.deepPurple)),
-                  onPressed: () {
-                    setState(() {
-                      resetSended = true;
-                    });
-                    reset();
-                  },
-                  child: Text(
-                    'Reset password',
-                    style: text,
-                  )),
-            ),
-            Center(
-                child: Text('email sended check your poste',
-                    style: resetSended ? checkerVisible : checkerInvisible)),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.deepPurple)),
-                  onPressed: () {
-                    verify();
-                    setState(() {
-                      verifySended = true;
-                    });
-                  },
-                  child: Text(
-                    'Verify email',
-                    style: text,
-                  )),
-            ),
-            Center(
-                child: Text(result.toString(),
-                    style: verifySended ? checkerVisible : checkerInvisible)),
-          ]),
-        ),
-      ]),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: AnimatedDefaultTextStyle(
+                  style: GoogleFonts.ubuntu(
+                      fontWeight: FontWeight.bold, fontSize: 21,color: HexColor(context.watch<brightessSwitch>().text),),
+                  duration: const Duration(milliseconds: 500),
+                  child: Text('Email: $email'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.deepPurple)),
+                    onPressed: () {
+                      setState(() {
+                        resetSended = true;
+                      });
+                      reset();
+                    },
+                    child: Text(
+                      'Reset password',
+                      style: text,
+                    )),
+              ),
+              Center(
+                  child: Text('email sended check your poste',
+                      style: resetSended ? checkerVisible : checkerInvisible)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.deepPurple)),
+                    onPressed: () {
+                      verify();
+                      setState(() {
+                        verifySended = true;
+                      });
+                    },
+                    child: Text(
+                      'Verify email',
+                      style: text,
+                    )),
+              ),
+              Center(
+                  child: Text(result.toString(),
+                      style: verifySended ? checkerVisible : checkerInvisible)),
+            ]),
+          ),
+        ]),
+      ),
     );
   }
 }

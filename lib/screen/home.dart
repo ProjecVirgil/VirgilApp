@@ -42,7 +42,7 @@ class _homeState extends State<home> {
             children: [
               Positioned(
                   top: 0,
-                  child: Image.asset('images/shapeHome.png', scale: 1.2)),
+                  child: Image.asset('images/shapeHome.webp', scale: 1.2)),
               Positioned(
                   top: 45,
                   left: 5,
@@ -80,15 +80,15 @@ class _homeState extends State<home> {
                 ),
               ),
               Positioned(
-                top: 270,
+                top: screenHeight / 2 - (screenHeight/6),
                 right: 10,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.transparent,
                   ),
-                  width: 330,
-                  height: 120,
+                  width: screenWidth - 100,
+                  height: screenHeight - 100,
                   child: Padding(
                       padding: const EdgeInsets.only(top: 0, right: 16),
                       child: AnimatedDefaultTextStyle(
@@ -110,7 +110,7 @@ class _homeState extends State<home> {
                       alignment: Alignment.center,
                       transform: Matrix4.identity()..scale(-1.0, -1.0),
                       child: Image.asset(
-                        'images/shapeHome.png',
+                        'images/shapeHome.webp',
                         scale: 1.2,
                       ))),
               Positioned(

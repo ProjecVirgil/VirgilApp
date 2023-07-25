@@ -62,7 +62,7 @@ class CardSetting extends StatelessWidget {
 
                 Positioned(
                   top: 16,
-                  left: 260,
+                  right: 20,
                   child: Container(
                       width: 100,
                       height: 60,

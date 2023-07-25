@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types, unrelated_type_equality_checks
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:virgil_app/screen/utils/auth.dart';
 
 bool containsUpperCase(String str) {
@@ -81,13 +82,15 @@ class _formsignupState extends State<formsignup> {
   bool isLogin = true;
 
   Future<void> createUser() async {
-    //print(_email.text);
-    //print(_password.text);
     try {
       await Auth().createUserWithEmailAndPassword(
           email: _email.text, password: _password.text);
     } on FirebaseAuthException catch (error) {
-      print(error);
+      if(error.toString().contains("The email address is already in use")){
+         setState(() {
+           isUse= true;
+         });
+      }
     }
   }
 
@@ -96,6 +99,8 @@ class _formsignupState extends State<formsignup> {
 
   //Varible for FORM
   bool obscure = true;
+  bool isUse = false;
+  double _opacity = 0.0;
   String confirmPassword = "";
   final passwordController = TextEditingController();
 
@@ -141,6 +146,7 @@ class _formsignupState extends State<formsignup> {
               child: TextFormField(
                   //VALIDATOR
                   controller: _password,
+                  maxLength: 50,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Password not valid";
@@ -188,7 +194,7 @@ class _formsignupState extends State<formsignup> {
             ),
             //CONFIRM
             Padding(
-              padding: const EdgeInsets.only(top: 30.0),
+              padding: const EdgeInsets.only(top: 10.0),
               child: TextFormField(
                   validator: (value) {
                     if (value == null ||
@@ -228,6 +234,11 @@ class _formsignupState extends State<formsignup> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     createUser();
+                    if(isUse){
+                      setState(() {
+                        _opacity = 1.0;
+                      });
+                    }
                   }
                 },
                 style: ButtonStyle(
@@ -235,6 +246,33 @@ class _formsignupState extends State<formsignup> {
                       MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
                 ),
                 child: const Text('Sign up'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: AnimatedOpacity(
+                onEnd: () {
+                  setState(() {
+                    _opacity = 0;
+                  });
+                },
+                opacity: _opacity,
+                duration: const Duration(seconds: 5),
+                curve: Curves.fastLinearToSlowEaseIn,
+                child: AnimatedContainer(
+                  width: 300,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.red),
+                  duration: const Duration(seconds: 5),
+                  child: Center(
+                      child: Text(
+                        'The email is alredy used',
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 15, fontWeight: FontWeight.w400),
+                      )),
+                ),
               ),
             )
           ],

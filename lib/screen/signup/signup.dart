@@ -51,11 +51,27 @@ class _signupState extends State<signup> {
 
   @override
   Widget build(BuildContext context) {
+
+    Size screenSize = MediaQuery.of(context).size;
+    double screenWidth = screenSize.width;
+    double screenHeight = screenSize.height;
+
     return GestureDetector(
       onTap: _handleScreenTap,
       child: Scaffold(
         body: Stack(
           children: [
+            Positioned(
+              bottom: -40,
+              child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 1000),
+                  curve: Curves.easeInOutCubicEmphasized, //DA VEDERE
+                  opacity: _opacity,
+                  child: Image.asset(
+                    'images/shape.webp',
+                  width: screenSize.width,
+                  )),
+            ),
             const titleSignup(),
             ListView(
               shrinkWrap: true,
@@ -68,8 +84,8 @@ class _signupState extends State<signup> {
                       _focusNode.unfocus();
                     },
                     child: frostedGlass(
-                      Width: 350.0,
-                      Height: 400.0,
+                      Width: screenWidth - 50,
+                      Height: screenHeight/2,
                       child: FocusScope(
                         child: Focus(
                           focusNode: _focusNode,
@@ -81,17 +97,6 @@ class _signupState extends State<signup> {
                 ),
               ],
             ),
-            Positioned(
-              bottom: -40,
-              child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeInOutCubicEmphasized, //DA VEDERE
-                  opacity: _opacity,
-                  child: Image.asset(
-                    'images/shape.png',
-                    scale: 1.2,
-                  )),
-            )
           ],
         ),
       ),

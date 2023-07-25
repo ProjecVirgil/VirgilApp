@@ -17,7 +17,7 @@
         android:enableOnBackInvokedCallback="true"
         android:requestLegacyExternalStorage="true"
 
-        android:label="virgil_app"
+        android:label="Virgil App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
