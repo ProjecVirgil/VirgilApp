@@ -230,27 +230,32 @@ class _sideBarState extends State<sideBar> {
               ),
             ),
             SizedBox(height: screenHeight - 650),
-            Padding(
-              padding:  const EdgeInsets.only(left: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset('images/Icons/logoutGrey.png', width: Icon_SIZE),
-                  Padding(
-                    padding:EdgeInsets.only(left: SPACE_VER),
-                    child: TextButton(
-                        onPressed: () {
-                          esci();
-                        },
-                        child: Text(
-                          'Logout',
-                          style: GoogleFonts.ibmPlexSans(
-                              color: HexColor('8a8a8a'),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18),
-                        )),
-                  ),
-                ],
+            GestureDetector(
+              onTap: () {
+                esci();
+              },
+              child: Padding(
+                padding:  const EdgeInsets.only(left: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset('images/Icons/logoutGrey.png', width: Icon_SIZE),
+                    Padding(
+                      padding:EdgeInsets.only(left: SPACE_VER),
+                      child: TextButton(
+                          onPressed: () {
+                            esci();
+                          },
+                          child: Text(
+                            'Logout',
+                            style: GoogleFonts.ibmPlexSans(
+                                color: HexColor('8a8a8a'),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18),
+                          )),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
