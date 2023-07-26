@@ -42,10 +42,8 @@ class _settingsVirgilState extends State<settingsVirgil>
   final TextEditingController _GPT = TextEditingController();
   final TextEditingController _merrosEmail = TextEditingController();
   final TextEditingController _merrosPassord = TextEditingController();
-  final TextEditingController _deeple = TextEditingController();
   final TextEditingController _temperature = TextEditingController();
   final TextEditingController _maxtoken = TextEditingController();
-  final TextEditingController _meteo = TextEditingController();
   final TextEditingController _Eleven = TextEditingController();
   //VALORI SETING
   String language = 'en';
@@ -103,10 +101,8 @@ class _settingsVirgilState extends State<settingsVirgil>
         "energy_threshold": _energy.text.toString(),
         "elevenlabs": _Eleven.text,
         "openAI": _GPT.text,
-        "weather": _meteo.text,
         "merrosEmail": _merrosEmail.text,
         "merrosPassword": _merrosPassord.text,
-        "deeple": _deeple.text,
         "temperature": _temperature.text.toString(),
         "max_tokens": _maxtoken.text.toString(),
       };
@@ -152,12 +148,10 @@ class _settingsVirgilState extends State<settingsVirgil>
       _word.text = currentSetting['wordActivation'];
       _timeout.text = currentSetting['operation_timeout'];
       language = currentSetting['language'];
-      _deeple.text = currentSetting['deeple'];
       _GPT.text = currentSetting['openAI'];
       _merrosPassord.text = currentSetting['merrosPassword'];
       _merrosEmail.text = currentSetting['merrosEmail'];
       isDynamic = bool.fromEnvironment(currentSetting['dynamic_energy_threshold']);
-      _meteo.text = currentSetting['weather'];
       _maxtoken.text = currentSetting['max_tokens'];
       _temperature.text = currentSetting['temperature'];
       _Eleven.text = currentSetting['elevenlabs'];
@@ -640,63 +634,6 @@ class _settingsVirgilState extends State<settingsVirgil>
                         formStringAPI(controller: _Eleven, regex: regex09afAF32, maxleng: 32, scrollController: _scrollController,),
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
-                          child: Text('OpenMeteo', style: title),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child:
-                              Text('API for Wheather interaction', style: subtitle),
-                        ),
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: 20,
-                            ),
-                            child: SizedBox(
-                              width: 250,
-                              child: TextFormField(
-                                style : TextStyle(color: HexColor(context.watch<brightessSwitch>().text)),
-                                controller: _meteo,
-                                validator: (value) {
-                                  if (!regex09afAF32.hasMatch(value!)) {
-                                    _scrollController.animateTo(
-                                      1200,
-                                      duration: const Duration(milliseconds: 500),
-                                      curve: Curves.easeInOut,
-                                    );
-                                    return 'inserisci una key valida';
-                                  }
-                                  return null;
-                                },
-                                maxLines: 1,
-                                maxLength: 32,
-                                autocorrect: false,
-                                cursorColor: Colors.deepPurple,
-
-                                decoration: InputDecoration(
-                                  hintText: 'key',
-                                  hintStyle: TextStyle(
-                                    color: HexColor(
-                                            context.watch<brightessSwitch>().text)
-                                        .withOpacity(0.8),
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: HexColor(context
-                                            .watch<brightessSwitch>()
-                                            .text)), // Colore del bordo quando l'input è abilitato
-                                  ),
-                                  focusedBorder: const UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.deepPurple),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 18.0),
                           child: Text('Merros', style: title),
                         ),
                         Padding(
@@ -777,17 +714,6 @@ class _settingsVirgilState extends State<settingsVirgil>
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 18.0),
-                          child: Text('Deeple', style: title),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text('API for translate some interaction',
-                              style: subtitle),
-                        ),
-                        formStringAPI(controller: _deeple, regex: regex09afAF32, maxleng: 39, scrollController: _scrollController,),
-
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 20.0, horizontal: 5),
@@ -941,9 +867,6 @@ class _settingsVirgilState extends State<settingsVirgil>
                                 _Eleven.text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
                                 _GPT.text =
                                     'sk-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-                                _deeple.text =
-                                    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-                                _meteo.text = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
                                 _merrosPassord.text = 'password';
                                 _merrosEmail.text = 'email';
                                 _temperature.text = '0.9';
