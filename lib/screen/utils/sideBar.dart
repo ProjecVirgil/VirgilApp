@@ -99,7 +99,6 @@ class _sideBarState extends State<sideBar> {
                 ],
               ),
             ),
-
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, 'home');
