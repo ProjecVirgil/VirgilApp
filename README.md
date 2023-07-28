@@ -14,6 +14,9 @@ The app born for the configuration and manage setting of part project main [Virg
 | <img src="/asset/Screen1.png" alt="Markdownify" width ="200px" > | <img src="/asset/screen3.png" alt="Markdownify" width ="200px"> |
 | <img src="/asset/screen2.png" alt="Markdownify" width ="200px"> | <img src="/asset/screen4.png" alt="Markdownify" width ="200px"> |
 
+## INFO
+For more info see the principle page on the [project Virgil](https://github.com/Retr0100/ProjectVirgil)
+
 ## RoadMap 🎯
 
 - [x] Write the press release
