@@ -80,7 +80,7 @@ class _settingsVirgilState extends State<settingsVirgil>
     }
     else {
       String url =
-          'https://flask-production-bb00.up.railway.app/api/setting/modify/$id/';
+          'http://fastapi-production-cd01.up.railway.app/api/setting/modify/$id/';
       var headers = {
         'Content-Type': 'application/json',
         // Imposta l'intestazione 'Content-Type' a 'application/json'
