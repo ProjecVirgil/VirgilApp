@@ -3,6 +3,13 @@
 ## Description 📃
 Virgil app is an app mobile created with [Dart](https://dart.dev/) and framework [Flutter](https://flutter.dev/)
 
+### **Virgil-App** 📱
+
+![Virgil-App](https://sloc.xyz/github/Retr0100/VirgilApp/)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/Retr0100/VirgilApp)
+![GitHub repo size](https://img.shields.io/github/repo-size/Retr0100/VirgilApp?color=purple)
+
+
 ## Getting Started 📋
 The app born for the configuration and manage setting of part project main [Virgil](https://github.com/Retr0100/ProjectVirgil) 
 
@@ -11,8 +18,9 @@ The app born for the configuration and manage setting of part project main [Virg
 - Login manage by [Firebase](https://firebase.google.com/products/)
 
 ## Some screen of the App 📸
-| <img src="/asset/Screen1.png" alt="Markdownify" width ="200px" > | <img src="/asset/screen3.png" alt="Markdownify" width ="200px"> |
-| <img src="/asset/screen2.png" alt="Markdownify" width ="200px"> | <img src="/asset/screen4.png" alt="Markdownify" width ="200px"> |
+| <img src="asset/Screen1.jpg" alt="Markdownify" width ="200px" > | <img src="asset/Screen2.jpg" alt="Markdownify" width ="200px"> |
+| <img src="asset/Screen2.jpg" alt="Markdownify" width ="200px"> | <img src="asset/Screen4.jpg" alt="Markdownify" width ="200px"> |
+<img src="asset/Screen3.jpg" alt="Markdownify" width ="200px"> |
 
 ## INFO
 For more info see the principle page on the [project Virgil](https://github.com/Retr0100/ProjectVirgil)
