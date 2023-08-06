@@ -2,7 +2,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:virgil_app/screen/utils/auth.dart';
+
+import '../utils/swtichBrightness.dart';
 
 bool containsUpperCase(String str) {
   return str
@@ -126,16 +130,20 @@ class _formsignupState extends State<formsignup> {
                 return null;
               },
               //STYLE
-              cursorColor: Colors.white,
+              cursorColor:HexColor(context.watch<brightessSwitch>().text),
               keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                  suffixIcon: Icon(Icons.email),
-                  suffixIconColor: Colors.white,
+              decoration:  InputDecoration(
+                  suffixIcon: const Icon(Icons.email),
+                  suffixIconColor: HexColor(context.watch<brightessSwitch>().text),
                   labelText: 'Email',
-                  labelStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: HexColor(context.watch<brightessSwitch>().text),),
                   hintText: 'example@email.com',
-                  border: OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
+                  border: const OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: HexColor(context.watch<brightessSwitch>().text) , // Imposta il colore del bordo desiderato
+                      )),
+                  focusedBorder: const OutlineInputBorder(
                       borderSide:
                           BorderSide(width: 2.0, color: Colors.deepPurple))),
             ),
@@ -171,13 +179,13 @@ class _formsignupState extends State<formsignup> {
                   },
                   //STYLE
                   textInputAction: TextInputAction.next,
-                  cursorColor: Colors.white,
+                  cursorColor: HexColor(context.watch<brightessSwitch>().text),
                   obscureText: obscure,
                   decoration: InputDecoration(
                       labelText: 'Password',
                       hintText: '',
-                      labelStyle: const TextStyle(color: Colors.white),
-                      suffixIconColor: Colors.white,
+                      labelStyle: TextStyle(color: HexColor(context.watch<brightessSwitch>().text),),
+                      suffixIconColor: HexColor(context.watch<brightessSwitch>().text),
                       suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
@@ -187,7 +195,14 @@ class _formsignupState extends State<formsignup> {
                           icon: obscure
                               ? const Icon(Icons.visibility)
                               : const Icon(Icons.visibility_off)),
-                      border: const OutlineInputBorder(),
+                      border:  OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 2.0, color: HexColor(context.watch<brightessSwitch>().text))
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: HexColor(context.watch<brightessSwitch>().text) , // Imposta il colore del bordo desiderato
+                          )),
                       focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                               width: 2.0, color: Colors.deepPurpleAccent)))),
@@ -205,14 +220,14 @@ class _formsignupState extends State<formsignup> {
                     return null;
                   },
                   //STYLE
-                  cursorColor: Colors.white,
+                  cursorColor: HexColor(context.watch<brightessSwitch>().text),
                   obscureText: obscure,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                       labelText: 'Confirm password',
                       hintText: '',
-                      labelStyle: const TextStyle(color: Colors.white),
-                      suffixIconColor: Colors.white,
+                      labelStyle:  TextStyle(color: HexColor(context.watch<brightessSwitch>().text)),
+                      suffixIconColor:HexColor(context.watch<brightessSwitch>().text),
                       suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
@@ -223,6 +238,10 @@ class _formsignupState extends State<formsignup> {
                               ? const Icon(Icons.visibility)
                               : const Icon(Icons.visibility_off)),
                       border: const OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: HexColor(context.watch<brightessSwitch>().text) , // Imposta il colore del bordo desiderato
+                          )),
                       focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                               width: 2.0, color: Colors.deepPurpleAccent)))),
@@ -245,7 +264,10 @@ class _formsignupState extends State<formsignup> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
                 ),
-                child: const Text('Sign up'),
+                child: const Text('Sign up',
+                  style: TextStyle(
+                      color: Colors.white,
+                ),),
               ),
             ),
             Padding(
@@ -270,7 +292,7 @@ class _formsignupState extends State<formsignup> {
                       child: Text(
                         'The email is alredy used',
                         style: GoogleFonts.ubuntu(
-                            fontSize: 15, fontWeight: FontWeight.w400),
+                            fontSize: 15, fontWeight: FontWeight.w400,color:HexColor(context.watch<brightessSwitch>().text)),
                       )),
                 ),
               ),

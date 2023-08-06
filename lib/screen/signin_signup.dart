@@ -28,16 +28,16 @@ class _signin_signupState extends State<signin_signup> {
             height: 50,
             child: Container(
               color: HexColor(context.watch<brightessSwitch>().background),
-              child: const TabBar(
+              child:  TabBar(
                   //MODIFY STYLE
                   indicatorWeight: 4,
                   indicatorColor: Colors.deepPurpleAccent,
                   tabs: [
                     Tab(
-                      icon: Icon(Icons.login),
+                      icon: Icon(Icons.login,color: HexColor(context.watch<brightessSwitch>().text) ,),
                     ),
                     Tab(
-                      icon: Icon(Icons.add_circle),
+                      icon: Icon(Icons.add_circle,color: HexColor(context.watch<brightessSwitch>().text) ,),
                     ),
                   ]),
             ),

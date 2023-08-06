@@ -1,7 +1,11 @@
 // ignore_for_file: camel_case_types, unrelated_type_equality_checks
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:virgil_app/screen/utils/auth.dart';
+
+import '../utils/swtichBrightness.dart';
 
 bool containsUpperCase(String str) {
   return str
@@ -135,15 +139,19 @@ class _formLoginState extends State<formLogin> {
                 return null;
               },
               //STYLE
-              cursorColor: Colors.white,
+              cursorColor: HexColor(context.watch<brightessSwitch>().text),
               keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                   suffixIcon: Icon(Icons.email),
-                  suffixIconColor: Colors.white,
+                  suffixIconColor: HexColor(context.watch<brightessSwitch>().text),
                   labelText: 'Email',
-                  labelStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: HexColor(context.watch<brightessSwitch>().text)),
                   hintText: 'example@email.com',
                   border: OutlineInputBorder(),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: HexColor(context.watch<brightessSwitch>().text) , // Imposta il colore del bordo desiderato
+                      )),
                   focusedBorder: OutlineInputBorder(
                       borderSide:
                           BorderSide(width: 2.0, color: Colors.deepPurple))),
@@ -164,13 +172,13 @@ class _formLoginState extends State<formLogin> {
                     return null;
                   },
                   //STYLE
-                  cursorColor: Colors.white,
+                  cursorColor: HexColor(context.watch<brightessSwitch>().text),
                   obscureText: obscure,
                   decoration: InputDecoration(
                       labelText: 'Password',
                       hintText: '',
-                      labelStyle: const TextStyle(color: Colors.white),
-                      suffixIconColor: Colors.white,
+                      labelStyle:  TextStyle(color: HexColor(context.watch<brightessSwitch>().text)),
+                      suffixIconColor: HexColor(context.watch<brightessSwitch>().text),
                       suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
@@ -181,6 +189,10 @@ class _formLoginState extends State<formLogin> {
                               ? const Icon(Icons.visibility)
                               : const Icon(Icons.visibility_off)),
                       border: const OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: HexColor(context.watch<brightessSwitch>().text) , // Imposta il colore del bordo desiderato
+                          )),
                       focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                               width: 2.0, color: Colors.deepPurpleAccent)))),
