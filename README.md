@@ -5,9 +5,9 @@ Virgil app is an app mobile created with [Dart](https://dart.dev/) and framework
 
 ### **Virgil-App** 📱
 
-![Virgil-App](https://sloc.xyz/github/Retr0100/VirgilApp/)
-![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/Retr0100/VirgilApp)
-![GitHub repo size](https://img.shields.io/github/repo-size/Retr0100/VirgilApp?color=purple)
+![VirgilApp](https://img.shields.io/badge/4%2C5k-4%2C5k?style=for-the-badge&logo=visualstudiocode&label=Lines%20of%20code&labelColor=282a3&color=%23164773)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/Retr0100/VirgilApp?style=for-the-badge&logo=github&labelColor=%23282a3&color=%231B7F79)
+![GitHub repo size](https://img.shields.io/github/repo-size/Retr0100/VirgilApp?style=for-the-badge&logo=github&labelColor=%23282a3&color=%23bd93f9)
 
 
 ## Getting Started 📋
