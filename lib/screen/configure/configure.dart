@@ -75,14 +75,14 @@ class _configureState extends State<configure> {
                 child: Transform(
                     alignment: Alignment.center,
                     transform: Matrix4.identity()..scale(-1.0, -1.0),
-                    child: Image.asset('images/shapeConfigure.webp'))),
+                    child: Image.asset('images/shapeConfigure.webp',scale: 2.0,))),
             Positioned(
                 //bottom: -60,
                 bottom: 0,
                 child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 500),
                     opacity: _opacity,
-                    child: Image.asset('images/shapeConfigure.webp'))),
+                    child: Image.asset('images/shapeConfigure.webp',scale: 2.0,))),
             CustomScrollView(
                 physics: const NeverScrollableScrollPhysics(),
                 slivers: [
@@ -116,8 +116,7 @@ class _configureState extends State<configure> {
                   // Imposta l'altezza del bordo inferiore
                   child: Container(
                     height: 1,
-                    color: Colors
-                        .deepPurpleAccent, // Imposta il colore del bordo inferiore
+                    color: HexColor("#4b008e"), // Imposta il colore del bordo inferiore
                   ),
                 ),
               ),

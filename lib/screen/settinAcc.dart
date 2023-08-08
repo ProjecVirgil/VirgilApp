@@ -97,8 +97,7 @@ class _settingAccState extends State<settingAcc> {
               preferredSize: const Size.fromHeight(1.0),
               child: Container(
                 height: 1,
-                color: Colors
-                    .deepPurpleAccent, // Imposta il colore del bordo inferiore
+                color: HexColor("#4b008e"), // Imposta il colore del bordo inferiore
               ),
             ),
           ),
@@ -118,7 +117,7 @@ class _settingAccState extends State<settingAcc> {
                 child: ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.deepPurple)),
+                            MaterialStateProperty.all<Color>(HexColor("#290043"))),
                     onPressed: () {
                       setState(() {
                         resetSended = true;
@@ -138,7 +137,7 @@ class _settingAccState extends State<settingAcc> {
                 child: ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.deepPurple)),
+                            MaterialStateProperty.all<Color>(HexColor("#290043"))),
                     onPressed: () {
                       verify();
                       setState(() {

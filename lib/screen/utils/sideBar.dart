@@ -93,7 +93,7 @@ class _sideBarState extends State<sideBar> {
                           context.read<brightessSwitch>().switchLight();
                         }
                       },
-                      activeColor: Colors.deepPurpleAccent,
+                      activeColor: HexColor("#4b008e"),
                     ),
                   ),
                 ],

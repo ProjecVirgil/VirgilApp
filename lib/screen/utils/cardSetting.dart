@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class CardSetting extends StatelessWidget {
   const CardSetting(
@@ -20,7 +21,7 @@ class CardSetting extends StatelessWidget {
     double screenWidth = screenSize.width;
     //double screenHeight = screenSize.height;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 10.0,right: 10.0,top: 15,bottom: 15),
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, page);
@@ -28,8 +29,8 @@ class CardSetting extends StatelessWidget {
         child: SizedBox(
           height: 100,
           child: Card(
-            color: Colors.deepPurple,
-            shadowColor: Colors.deepPurpleAccent,
+            color: HexColor("#290043"), //4b008e
+            shadowColor: HexColor("#4b008e"),
             elevation: 5,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),

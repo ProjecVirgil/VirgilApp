@@ -143,9 +143,9 @@ class _formsignupState extends State<formsignup> {
                       borderSide: BorderSide(
                         color: HexColor(context.watch<brightessSwitch>().text) , // Imposta il colore del bordo desiderato
                       )),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder:  OutlineInputBorder(
                       borderSide:
-                          BorderSide(width: 2.0, color: Colors.deepPurple))),
+                          BorderSide(width: 2.0, color: HexColor("#290043")))),
             ),
 
             //PASSWORD
@@ -203,9 +203,9 @@ class _formsignupState extends State<formsignup> {
                           borderSide: BorderSide(
                             color: HexColor(context.watch<brightessSwitch>().text) , // Imposta il colore del bordo desiderato
                           )),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder:  OutlineInputBorder(
                           borderSide: BorderSide(
-                              width: 2.0, color: Colors.deepPurpleAccent)))),
+                              width: 2.0, color: HexColor("#4b008e"))))),
             ),
             //CONFIRM
             Padding(
@@ -242,9 +242,9 @@ class _formsignupState extends State<formsignup> {
                           borderSide: BorderSide(
                             color: HexColor(context.watch<brightessSwitch>().text) , // Imposta il colore del bordo desiderato
                           )),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder:  OutlineInputBorder(
                           borderSide: BorderSide(
-                              width: 2.0, color: Colors.deepPurpleAccent)))),
+                              width: 2.0, color: HexColor("#4b008e"))))),
             ),
             //BUTTON
             Padding(
@@ -262,7 +262,7 @@ class _formsignupState extends State<formsignup> {
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                      MaterialStateProperty.all<Color>(HexColor("#290043")),
                 ),
                 child: const Text('Sign up',
                   style: TextStyle(

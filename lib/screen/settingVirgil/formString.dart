@@ -45,7 +45,7 @@ class formStringAPI extends StatelessWidget {
             maxLines: 1,
             maxLength: maxleng,
             autocorrect: false,
-            cursorColor: Colors.deepPurple,
+            cursorColor: HexColor("#290043"),
             decoration: InputDecoration(
               hintText: 'Key',
               hintStyle: TextStyle(
@@ -59,8 +59,8 @@ class formStringAPI extends StatelessWidget {
                       context.watch<brightessSwitch>().text),
                 ), // Colore del bordo quando l'input è abilitato
               ),
-              focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.deepPurple),
+              focusedBorder:  UnderlineInputBorder(
+                borderSide: BorderSide(color: HexColor("#290043")),
               ),
             ),
           ),

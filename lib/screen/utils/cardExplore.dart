@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class cardExplore extends StatelessWidget {
   const cardExplore(
@@ -27,7 +28,7 @@ class cardExplore extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.deepPurple.withOpacity(1),
+            color: HexColor("#290043").withOpacity(1),
             spreadRadius: 2,
             blurRadius: 2,
             offset: const Offset(
@@ -35,10 +36,10 @@ class cardExplore extends StatelessWidget {
           ),
         ],
         border: Border.all(
-          color: Colors.deepPurple,
+          color: HexColor("#290043"),
           width: 2,
         ),
-        color: Colors.deepPurple,
+        color: HexColor("#290043"),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Stack(children: [
@@ -55,7 +56,7 @@ class cardExplore extends StatelessWidget {
             width: _widthCard / 1.5,
             height: _heightCard / 2.5,
             decoration: BoxDecoration(
-              color: Colors.deepPurple,
+              color: HexColor("#290043"),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(

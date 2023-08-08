@@ -142,19 +142,19 @@ class _formLoginState extends State<formLogin> {
               cursorColor: HexColor(context.watch<brightessSwitch>().text),
               keyboardType: TextInputType.emailAddress,
               decoration:  InputDecoration(
-                  suffixIcon: Icon(Icons.email),
+                  suffixIcon: const Icon(Icons.email),
                   suffixIconColor: HexColor(context.watch<brightessSwitch>().text),
                   labelText: 'Email',
                   labelStyle: TextStyle(color: HexColor(context.watch<brightessSwitch>().text)),
                   hintText: 'example@email.com',
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: HexColor(context.watch<brightessSwitch>().text) , // Imposta il colore del bordo desiderato
                       )),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder:  OutlineInputBorder(
                       borderSide:
-                          BorderSide(width: 2.0, color: Colors.deepPurple))),
+                          BorderSide(width: 2.0, color: HexColor("#290043")))),
             ),
 
             //PASSWORD
@@ -193,9 +193,9 @@ class _formLoginState extends State<formLogin> {
                           borderSide: BorderSide(
                             color: HexColor(context.watch<brightessSwitch>().text) , // Imposta il colore del bordo desiderato
                           )),
-                      focusedBorder: const OutlineInputBorder(
+                      focusedBorder:  OutlineInputBorder(
                           borderSide: BorderSide(
-                              width: 2.0, color: Colors.deepPurpleAccent)))),
+                              width: 2.0, color: HexColor("#4b008e"))))),
             ),
             //BUTTON
             Padding(
@@ -208,7 +208,7 @@ class _formLoginState extends State<formLogin> {
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                      MaterialStateProperty.all<Color>(HexColor("#290043")),
                 ),
                 child: const Text('Sign in'),
               ),

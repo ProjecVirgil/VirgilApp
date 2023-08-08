@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:virgil_app/screen/utils/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:virgil_app/screen/utils/cardSetting.dart';
+import 'package:virgil_app/screen/utils/fixedBehavior.dart';
 import 'package:virgil_app/screen/utils/sideBar.dart';
 import 'package:virgil_app/screen/utils/swtichBrightness.dart';
 
@@ -22,8 +23,6 @@ class _homeState extends State<home> {
   String user() {
     return Auth().getCurrentUserEmail();
   }
-
-  double _height = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,9 @@ class _homeState extends State<home> {
             children: [
               Positioned(
                   top: 0,
-                  child: Image.asset('images/shapeHome.webp', scale: 1.2)),
+                  child: SizedBox(
+                      width: screenWidth,
+                      child: Image.asset('images/imgAI3-transformed.png', scale: 1))),
               Positioned(
                   top: 45,
                   left: 5,
@@ -62,7 +63,7 @@ class _homeState extends State<home> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(sliceEmail[0],
                       style: GoogleFonts.ptSans(
-                          fontSize: 40,
+                          fontSize: screenWidth/10,
                           fontWeight: FontWeight.bold,
                           color: Colors.white)),
                 ),
@@ -74,101 +75,58 @@ class _homeState extends State<home> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text('welcome to Virgil App',
                       style: GoogleFonts.ptSans(
-                          fontSize: 18,
+                          fontSize: screenWidth/20,
                           fontWeight: FontWeight.bold,
                           color: Colors.white)),
                 ),
               ),
               Positioned(
-                top: screenHeight / 2 - (screenHeight/6),
-                right: 10,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.transparent,
-                  ),
-                  width: screenWidth - 100,
-                  height: screenHeight - 100,
-                  child: Padding(
-                      padding: const EdgeInsets.only(top: 0, right: 16),
-                      child: AnimatedDefaultTextStyle(
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.ubuntu(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: HexColor(
-                                context.watch<brightessSwitch>().text)),
-                        duration: const Duration(milliseconds: 500),
-                        child: const Text(
-                            'Hi now that you are in you can configure and set up your Virgilio whenever and wherever you want first I suggest you configure virgilio via the token and then start exploring all you can do '),
-                      )),
+                top: screenHeight /2.15,
+                left:  20,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: AnimatedDefaultTextStyle(
+                      style: GoogleFonts.ptSans(
+                          fontSize: screenWidth/12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                          duration: const Duration(milliseconds: 500),
+                          child: const Text('START FROM THIS')),
                 ),
               ),
               Positioned(
-                  bottom: 0,
-                  child: Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.identity()..scale(-1.0, -1.0),
-                      child: Image.asset(
-                        'images/shapeHome.webp',
-                        scale: 1.2,
-                      ))),
-              Positioned(
-                bottom: 10,
-                left: (screenWidth - 50) / 2,
-                child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _height = screenHeight / 2;
-                      });
-                    },
-                    icon: const Icon(Icons.arrow_upward)),
-              ),
-              Positioned(
                 bottom: 0,
-                child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.decelerate,
+                child: Container(
                     width: screenWidth,
-                    height: _height,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40)),
-                      color:
-                          HexColor(context.watch<brightessSwitch>().background),
+                    height: screenHeight / 2.15,
+                    decoration: const BoxDecoration(
+                      color: Colors.transparent,
                     ),
-                    child: ListView(
-                      padding: const EdgeInsets.all(0),
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _height = 0;
-                              });
-                            },
-                            icon: const Icon(Icons.arrow_downward),
-                            color:
-                                HexColor(context.read<brightessSwitch>().text)),
-                        const CardSetting(
-                          title: 'Explore',
-                          icon: 'images/Icons/compass.png',
-                          paragraf: 'Find out what Virgil can do',
-                          page: 'explore',
-                        ),
-                        const CardSetting(
-                          title: 'Configure',
-                          icon: 'images/Icons/configuration.png',
-                          paragraf: 'Configure your Virgil with app',
-                          page: 'configure',
-                        ),
-                        const CardSetting(
-                          title: 'Virgil setting',
-                          icon: 'images/Icons/setting-lines.png',
-                          paragraf: 'Modify the setting of your virgil',
-                          page: 'settings',
-                        ),
-                      ],
+                    child: ScrollConfiguration(
+                      behavior: MyBehavior(),
+                      child: ListView(
+                        padding: const EdgeInsets.all(0),
+                        children: const [
+                          CardSetting(
+                            title: 'Explore',
+                            icon: 'images/Icons/compass.png',
+                            paragraf: 'Find out what Virgil can do',
+                            page: 'explore',
+                          ),
+                          CardSetting(
+                            title: 'Configure',
+                            icon: 'images/Icons/configuration.png',
+                            paragraf: 'Configure your Virgil with app',
+                            page: 'configure',
+                          ),
+                          CardSetting(
+                            title: 'Virgil setting',
+                            icon: 'images/Icons/setting-lines.png',
+                            paragraf: 'Modify the setting of your virgil',
+                            page: 'settings',
+                          ),
+                        ],
+                      ),
                     )),
               )
             ],
