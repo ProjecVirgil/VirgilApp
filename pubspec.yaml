@@ -56,9 +56,9 @@ dev_dependencies:
 
 flutter_native_splash:
   image: assets/LogoUpscale.png
-  color: "#683ab7"
+  color: "#290043"
   image_dark: assets/LogoUpscale.png
-  color_dark: "#683ab7"
+  color_dark: "#290043"
 
 flutter_icons:
   android: true
