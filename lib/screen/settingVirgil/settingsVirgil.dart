@@ -32,6 +32,7 @@ class _settingsVirgilState extends State<settingsVirgil>
   //OPACITY
   double _opacity = 0;
   double _opacityNullError = 0.0;
+  double _opacityError = 0.0;
   //KEY FORM
   final formKey = GlobalKey<FormState>();
   final ScrollController _scrollController = ScrollController();
@@ -108,12 +109,17 @@ class _settingsVirgilState extends State<settingsVirgil>
         "max_tokens": _maxtoken.text.toString(),
       };
 
-
+    try{
       await http.post(
         Uri.parse(url),
         body: jsonEncode(settingUpdate),
         headers: headers,
       );
+    }
+    catch(e){
+      _opacityError = 1.0;
+    }
+
 
       return true;
     }
@@ -893,6 +899,44 @@ class _settingsVirgilState extends State<settingsVirgil>
                 ],
             ),
               ),
+
+              Positioned(
+                left: (screenWidth - (screenWidth-100)) / 2,
+                bottom: (screenHeight / 2) - 100,
+                child: AnimatedOpacity(
+                  opacity: _opacityError,
+                  duration: const Duration(seconds: 2),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  child: AnimatedContainer(
+                    width: screenWidth - 100,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: Colors.red),
+                    duration: const Duration(seconds: 2),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [ Text(
+                          'Database not reachable',
+                          style: GoogleFonts.ubuntu(
+                              fontSize: 15, fontWeight: FontWeight.w400),
+                        ),
+                          ElevatedButton(style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            backgroundColor: Colors.transparent,
+                            elevation: 0,
+                          ),
+                              onPressed: () {
+                                setState(() {
+                                  _opacityError = 0;
+                                });
+                              }, child: const Text('OK'))
+                        ]
+                    ),
+                  ),
+                ),
+              ),
+
               Positioned(
                 left: (screenWidth - (screenWidth-100)) / 2,
                 bottom: screenHeight / 2,
@@ -974,7 +1018,9 @@ class _settingsVirgilState extends State<settingsVirgil>
               bool res = await sendNewSetting(); // Attendere il completamento della Future
               if (res) {
                 setState(() {
-                  _opacity = 1;
+                  if(_opacityError == 0){
+                    _opacity = 1;
+                  }
                 });
               } else {
                 setState(() {

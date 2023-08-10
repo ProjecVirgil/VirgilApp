@@ -19,9 +19,12 @@ class CardSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double screenWidth = screenSize.width;
+    double screenHeight = screenSize.height;
     //double screenHeight = screenSize.height;
+    double paddingX = screenWidth/30;
+    double paddingY = screenHeight/60;
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0,right: 10.0,top: 15,bottom: 15),
+      padding:  EdgeInsets.only(left: paddingX,right: paddingX,top: paddingY,bottom: paddingY),
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, page);
