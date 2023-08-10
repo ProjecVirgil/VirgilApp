@@ -102,32 +102,30 @@ class _homeState extends State<home> {
                     decoration: const BoxDecoration(
                       color: Colors.transparent,
                     ),
-                    child: ScrollConfiguration(
-                      behavior: MyBehavior(),
-                      child: ListView(
-                        padding: const EdgeInsets.all(0),
-                        children: const [
-                          CardSetting(
-                            title: 'Explore',
-                            icon: 'images/Icons/compass.png',
-                            paragraf: 'Find out what Virgil can do',
-                            page: 'explore',
-                          ),
-                          CardSetting(
-                            title: 'Configure',
-                            icon: 'images/Icons/configuration.png',
-                            paragraf: 'Configure your Virgil with app',
-                            page: 'configure',
-                          ),
-                          CardSetting(
-                            title: 'Virgil setting',
-                            icon: 'images/Icons/setting-lines.png',
-                            paragraf: 'Modify the setting of your virgil',
-                            page: 'settings',
-                          ),
-                        ],
-                      ),
-                    )),
+                          child: const Column(
+                            children: [
+                              CardSetting(
+                                title: 'Explore',
+                                icon: 'images/Icons/compass.png',
+                                paragraf: 'Find out what Virgil can do',
+                                page: 'explore',
+                              ),
+                              CardSetting(
+                                title: 'Configure',
+                                icon: 'images/Icons/configuration.png',
+                                paragraf: 'Configure your Virgil with app',
+                                page: 'configure',
+                              ),
+                              CardSetting(
+                                title: 'Virgil setting',
+                                icon: 'images/Icons/setting-lines.png',
+                                paragraf: 'Modify the setting of your virgil',
+                                page: 'settings',
+                              ),
+                            ],
+                          )
+
+                    ),
               )
             ],
           ),
