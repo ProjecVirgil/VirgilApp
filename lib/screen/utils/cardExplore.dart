@@ -45,11 +45,11 @@ class cardExplore extends StatelessWidget {
       child: Stack(children: [
         ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
+            child:Hero(tag: "img$title", child:Image.asset(
               pathImage,
               fit: BoxFit.cover,
               height: _heightCard,
-            )),
+            ))),
         Align(
           alignment: FractionalOffset.bottomRight,
           child: Container(
