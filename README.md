@@ -30,5 +30,5 @@ For more info see the principle page on the [project Virgil](https://github.com/
 - [x] Write the press release
 - [X] Upgrade the method of send update setting
 - [x] Improve the design and the visual feedback
-- [ ] Add new interaction in the page explore
+- [x] Add new interaction in the page explore
 
