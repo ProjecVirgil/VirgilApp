@@ -32,3 +32,12 @@ For more info see the principle page on the [project Virgil](https://github.com/
 - [x] Improve the design and the visual feedback
 - [x] Add new interaction in the page explore
 
+## 💸 Credits and technologies used
+
+Developer: Only me for now
+Technologies:
+ - Dart
+ - Flutter
+ - Firebase from Google
+
+ps: follow me on [instagram](https://www.instagram.com/akiidjk) and [twitter](https://twitter.com/R3tr0_fj) contact me for help or support
