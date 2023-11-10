@@ -167,31 +167,33 @@ class _formKeyState extends State<formKey> {
               ),
             ],
           ),
-          Positioned(
-            left: (screenWidth - 360) / 2,
-            bottom: 50,
-            child: AnimatedOpacity(
-              onEnd: () {
-                setState(() {
-                  _opacity = 0;
-                });
-              },
-              opacity: _opacity,
-              duration: const Duration(seconds: 2),
-              curve: Curves.fastLinearToSlowEaseIn,
-              child: AnimatedContainer(
-                width: 300,
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                    color: Colors.green),
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.only(top: 250),
+              child: AnimatedOpacity(
+                onEnd: () {
+                  setState(() {
+                    _opacity = 0;
+                  });
+                },
+                opacity: _opacity,
                 duration: const Duration(seconds: 2),
-                child: Center(
-                    child: Text(
-                  'Key saved successfully',
-                  style: GoogleFonts.ubuntu(
-                      fontSize: 15, fontWeight: FontWeight.w400),
-                )),
+                curve: Curves.fastLinearToSlowEaseIn,
+                child: AnimatedContainer(
+                  width: 300,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.green),
+                  duration: const Duration(seconds: 2),
+                  child: Center(
+                      child: Text(
+                    'Key saved successfully',
+                    style: GoogleFonts.ubuntu(
+                        fontSize: 15, fontWeight: FontWeight.w400),
+                  )),
+                ),
               ),
             ),
           )

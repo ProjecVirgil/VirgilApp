@@ -82,7 +82,7 @@ class _settingsVirgilState extends State<settingsVirgil>
     }
     else {
       String url =
-          'https://fastapi-production-cd01.up.railway.app/api/setting/modify/$id/';
+          'https://virgilapi-production.up.railway.app/api/setting/modify/$id/';
       var headers = {
         'Content-Type': 'application/json',
         // Imposta l'intestazione 'Content-Type' a 'application/json'
@@ -135,7 +135,7 @@ class _settingsVirgilState extends State<settingsVirgil>
 
   Future<dynamic> getSetting() async {
     var id = await readKeyFile();
-      String url = 'https://fastapi-production-cd01.up.railway.app/api/setting/$id/';
+      String url = 'https://virgilapi-production.up.railway.app/api/setting/$id/';
       var headers = {
         'Content-Type': 'application/json',
       };
