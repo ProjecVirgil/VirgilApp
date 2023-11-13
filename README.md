@@ -1,4 +1,4 @@
-# Virgil App | Last docs update: 13/11/2023 (day-month-year)
+# Virgil App | Last docs update: 13/11/2023 (d/m/y)
 
 ## Description 📃
 Virgil app is an app mobile created with [Dart](https://dart.dev/) and framework [Flutter](https://flutter.dev/) to allow the user to customize and set up their Virgil
