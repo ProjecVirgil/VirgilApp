@@ -47,6 +47,7 @@ class _settingsVirgilState extends State<settingsVirgil>
   final TextEditingController _temperature = TextEditingController();
   final TextEditingController _maxtoken = TextEditingController();
   final TextEditingController _Eleven = TextEditingController();
+  final TextEditingController _gpt_version = TextEditingController();
   //VALORI SETING
   String language = 'en';
   bool _isDynamic = false;
@@ -105,6 +106,7 @@ class _settingsVirgilState extends State<settingsVirgil>
         "openAI": _GPT.text,
         "merrosEmail": _merrosEmail.text,
         "merrosPassword": _merrosPassord.text,
+        "gpt-version":  _gpt_version.text,
         "temperature": _temperature.text.toString(),
         "max_tokens": _maxtoken.text.toString(),
       };
@@ -163,6 +165,7 @@ class _settingsVirgilState extends State<settingsVirgil>
       _temperature.text = currentSetting['temperature'];
       _Eleven.text = currentSetting['elevenlabs'];
       _energy.text = currentSetting['energy_threshold'];
+      _gpt_version.text = currentSetting["gpt-version"];
       volume = double.parse(currentSetting['volume']);
     });
   }
@@ -756,6 +759,55 @@ class _settingsVirgilState extends State<settingsVirgil>
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 18.0),
+                            child: Text('Gpt version', style: title),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Text(
+                                'The version of gpt to run (attention to your plan with openai)',
+                                style: subtitle),
+                          ),
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 20,
+                              ),
+                              child: SizedBox(
+                                width: 150,
+                                child: TextField(
+                                  style : TextStyle(color: HexColor(context.watch<brightessSwitch>().text)),
+
+                                  controller: _gpt_version,
+                                  maxLines: 1,
+                                  maxLength: 30,
+                                  autocorrect: false,
+                                  cursorColor: HexColor("#290043"),
+                                  decoration: InputDecoration(
+                                    hintText: 'gpt-3.5-0613',
+                                    hintStyle: TextStyle(
+                                      color: HexColor(
+                                          context.watch<brightessSwitch>().text)
+                                          .withOpacity(0.8),
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: HexColor(context
+                                              .watch<brightessSwitch>()
+                                              .text)),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(
+                                          color: HexColor("#290043")
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 18.0),
                             child: Text('Temperature', style: title),
                           ),
                           Padding(
@@ -881,6 +933,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                                   _maxtoken.text = '30';
                                   volume = 100;
                                   language = 'it';
+                                  _gpt_version.text = "gpt-3.5-turbo-0613";
                                   sendNewSetting();
 
                                 },

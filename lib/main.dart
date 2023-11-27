@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         highlightColor: Colors.transparent,
         colorScheme: ColorScheme.fromSwatch(
             brightness: Brightness.dark,
-            primaryColorDark: Colors.deepPurpleAccent[600],
+            //primaryColorDark: Colors.deepPurpleAccent[600],
             accentColor: Colors.deepPurpleAccent[600],
             errorColor: const Color.fromARGB(255, 244, 10, 0)),
       ),
