@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 class brightessSwitch with ChangeNotifier {
-  String _background = "#121212";
-  String _text = "#FFFFFF";
+  String _background = "#1d1e27";
+  String _text = "#dddddf";
   bool _isDark = true;
 
   String get background => _background;
@@ -15,15 +15,15 @@ class brightessSwitch with ChangeNotifier {
 
   void switchDark() {
     _isDark = true;
-    _background = "#121212";
-    _text = "#FFFFFF";
+    _background = "#1d1e27";
+    _text = "#dddddf";
     notifyListeners();
   }
 
   void switchLight() {
     _isDark = false;
-    _background = "#FFFFFF";
-    _text = "#333333";
+    _background = "#dddddf";
+    _text = "#1d1e27";
     notifyListeners();
   }
 }

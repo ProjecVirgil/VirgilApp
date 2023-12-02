@@ -145,7 +145,7 @@ class _formsignupState extends State<formsignup> {
                       )),
                   focusedBorder:  OutlineInputBorder(
                       borderSide:
-                          BorderSide(width: 2.0, color: HexColor("#290043")))),
+                          BorderSide(width: 2.0, color: HexColor("#A58EF5")))),
             ),
 
             //PASSWORD
@@ -205,7 +205,7 @@ class _formsignupState extends State<formsignup> {
                           )),
                       focusedBorder:  OutlineInputBorder(
                           borderSide: BorderSide(
-                              width: 2.0, color: HexColor("#4b008e"))))),
+                              width: 2.0, color: HexColor("#A58EF5"))))),
             ),
             //CONFIRM
             Padding(
@@ -244,7 +244,7 @@ class _formsignupState extends State<formsignup> {
                           )),
                       focusedBorder:  OutlineInputBorder(
                           borderSide: BorderSide(
-                              width: 2.0, color: HexColor("#4b008e"))))),
+                              width: 2.0, color: HexColor("#A58EF5"))))),
             ),
             //BUTTON
             Padding(
@@ -262,11 +262,11 @@ class _formsignupState extends State<formsignup> {
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(HexColor("#290043")),
+                      MaterialStateProperty.all<Color>(HexColor("#1D1E27")),
                 ),
-                child: const Text('Sign up',
+                child: Text('Sign up',
                   style: TextStyle(
-                      color: Colors.white,
+                      color: HexColor("#DDDDDF"),
                 ),),
               ),
             ),

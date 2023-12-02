@@ -65,7 +65,7 @@ class _homeState extends State<home> {
                       style: GoogleFonts.ptSans(
                           fontSize: screenWidth/10,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white)),
+                          color: HexColor("#DDDDDF"))),
                 ),
               ),
               Positioned(
@@ -77,7 +77,7 @@ class _homeState extends State<home> {
                       style: GoogleFonts.ptSans(
                           fontSize: screenWidth/20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white)),
+                          color: HexColor("#DDDDDF"))),
                 ),
               ),
               Positioned(
@@ -89,7 +89,7 @@ class _homeState extends State<home> {
                       style: GoogleFonts.ptSans(
                           fontSize: screenWidth/12,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          color: HexColor("#DDDDDF")),
                           duration: const Duration(milliseconds: 500),
                           child: const Text('START FROM THIS')),
                 ),

@@ -45,7 +45,7 @@ class formStringAPI extends StatelessWidget {
             maxLines: 1,
             maxLength: maxleng,
             autocorrect: false,
-            cursorColor: HexColor("#290043"),
+            cursorColor: HexColor("#A58EF5"),
             decoration: InputDecoration(
               hintText: 'Key',
               hintStyle: TextStyle(

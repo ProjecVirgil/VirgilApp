@@ -13,9 +13,6 @@ class sideBar extends StatefulWidget {
   @override
   State<sideBar> createState() => _sideBarState();
 
-
-
-
 }
 
 class _sideBarState extends State<sideBar> {
@@ -93,7 +90,7 @@ class _sideBarState extends State<sideBar> {
                           context.read<brightessSwitch>().switchLight();
                         }
                       },
-                      activeColor: HexColor("#4b008e"),
+                      activeColor: HexColor("#A58EF5"),
                     ),
                   ),
                 ],

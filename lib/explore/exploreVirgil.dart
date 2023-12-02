@@ -157,7 +157,7 @@ class _exploreState extends State<explore> {
                   child: Padding(
                       padding: const EdgeInsets.all(10),
                       child:
-                          context.watch<brightessSwitch>().background == '#121212'
+                          context.watch<brightessSwitch>().background == '#1d1e27'
                               ? Image.asset('images/Icons/menusWhite.png')
                               : Image.asset('images/Icons/menusBlack.png')),
                 ),
@@ -169,7 +169,7 @@ class _exploreState extends State<explore> {
                   // Imposta l'altezza del bordo inferiore
                   child: Container(
                     height: 1,
-                    color: HexColor("#4b008e"), // Imposta il colore del bordo inferiore
+                    color: HexColor("#A58EF5"), // Imposta il colore del bordo inferiore
                   ),
                 ),
               ),
@@ -207,8 +207,8 @@ class _exploreState extends State<explore> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: HexColor("#290043"),
-        foregroundColor: Colors.white,
+        backgroundColor: HexColor("#282936"),
+        foregroundColor: HexColor("#DDDDDF"),
         onPressed: () {
           _scrollController.animateTo(
             0,

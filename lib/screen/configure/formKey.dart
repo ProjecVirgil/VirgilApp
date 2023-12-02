@@ -97,7 +97,7 @@ class _formKeyState extends State<formKey> {
                       borderRadius: BorderRadius.circular(20.0),
                       color: Colors.transparent,
                       border: Border.all(
-                        color: HexColor("#290043"),
+                        color: HexColor("#1D1E27"),
                         // Cambia il colore dei bordi qui
                         width: 2.0, // Imposta la larghezza dei bordi
                       ),
@@ -111,7 +111,7 @@ class _formKeyState extends State<formKey> {
                         return null;
                       },
                       controller: _key,
-                      cursorColor: HexColor("#290043"),
+                      cursorColor: HexColor("#1D1E27"),
                       style: TextStyle(
                           color:
                               HexColor(context.watch<brightessSwitch>().text)),
@@ -141,7 +141,7 @@ class _formKeyState extends State<formKey> {
                   },
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(HexColor("#290043")),
+                        MaterialStateProperty.all<Color>(HexColor("#1D1E27")),
                   ),
                   child: const Text('Save key'),
                 ),

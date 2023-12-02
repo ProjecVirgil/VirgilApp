@@ -154,7 +154,7 @@ class _formLoginState extends State<formLogin> {
                       )),
                   focusedBorder:  OutlineInputBorder(
                       borderSide:
-                          BorderSide(width: 2.0, color: HexColor("#290043")))),
+                          BorderSide(width: 2.0, color: HexColor("#A58EF5")))),
             ),
 
             //PASSWORD
@@ -195,7 +195,7 @@ class _formLoginState extends State<formLogin> {
                           )),
                       focusedBorder:  OutlineInputBorder(
                           borderSide: BorderSide(
-                              width: 2.0, color: HexColor("#4b008e"))))),
+                              width: 2.0, color: HexColor("#A58EF5"))))),
             ),
             //BUTTON
             Padding(
@@ -208,7 +208,7 @@ class _formLoginState extends State<formLogin> {
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(HexColor("#290043")),
+                      MaterialStateProperty.all<Color>(HexColor("#1D1E27")),
                 ),
                 child: const Text('Sign in'),
               ),

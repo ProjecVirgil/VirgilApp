@@ -233,7 +233,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                       child: Padding(
                           padding: const EdgeInsets.all(10),
                           child:
-                          context.watch<brightessSwitch>().background == '#121212'
+                          context.watch<brightessSwitch>().background == '#1d1e27'
                               ? Image.asset('images/Icons/menusWhite.png')
                                   : Image.asset('images/Icons/menusBlack.png')),
                     ),
@@ -245,7 +245,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                       // Imposta l'altezza del bordo inferiore
                       child: Container(
                         height: 1,
-                        color: HexColor("#4b008e"), // Imposta il colore del bordo inferiore
+                        color: HexColor("#A58EF5"), // Imposta il colore del bordo inferiore
                       ),
                     ),
                   ),
@@ -372,9 +372,9 @@ class _settingsVirgilState extends State<settingsVirgil>
                                 textAlign: TextAlign.left),
                           ),
                           Slider(
-                            inactiveColor: HexColor("#290043"),
-                            activeColor: HexColor("#290043"),
-                            thumbColor: HexColor("#682B8F"),
+                            inactiveColor: HexColor("#282936"),
+                            activeColor: HexColor("#282936"),
+                            thumbColor: HexColor("#A58EF5"),
                             divisions: 9,
                             secondaryActiveColor:
                                 HexColor(context.watch<brightessSwitch>().text),
@@ -407,7 +407,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                             child: ElevatedButton(
                                 style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all<Color>(
-                                        HexColor("#290043"))),
+                                        HexColor("#282936"))),
                                 onPressed: () async {
                                   Location location = Location();
 
@@ -448,7 +448,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                                 vertical: 20.0, horizontal: 5),
                             child: Divider(
                               thickness: 4,
-                              color: HexColor("#4b008e").withOpacity(0.5),
+                              color: HexColor("#A58EF5").withOpacity(0.5),
                             ),
                           ),
                           Center(
@@ -594,7 +594,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                                 vertical: 20.0, horizontal: 5),
                             child: Divider(
                               thickness: 4,
-                              color: HexColor("#4b008e").withOpacity(0.5),
+                              color: HexColor("#A58EF5").withOpacity(0.5),
                             ),
                           ),
                           Center(
@@ -728,7 +728,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                                 vertical: 20.0, horizontal: 5),
                             child: Divider(
                               thickness: 4,
-                              color: HexColor("#4b008e").withOpacity(0.5),
+                              color: HexColor("#A58EF5").withOpacity(0.5),
                             ),
                           ),
                           Center(
@@ -908,7 +908,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                                 vertical: 20.0, horizontal: 5),
                             child: Divider(
                               thickness: 4,
-                              color: HexColor("#4b008e").withOpacity(0.5),
+                              color: HexColor("#A58EF5").withOpacity(0.5),
                             ),
                           ),
                           Center(
@@ -939,7 +939,7 @@ class _settingsVirgilState extends State<settingsVirgil>
                                 },
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all<Color>(
-                                      HexColor("#290043")),
+                                      HexColor("#282936")),
                                 ),
                                 child: const Text('Default setting'),
                               ),
@@ -1082,9 +1082,9 @@ class _settingsVirgilState extends State<settingsVirgil>
               }
             }
           },
-          backgroundColor: HexColor("#290043"),
+          backgroundColor: HexColor("#282936"),
           elevation: 10,
-          child: const Icon(Icons.save, color: Colors.white),
+          child: Icon(Icons.save, color: HexColor("#DDDDDF")),
         ),
       ),
     );

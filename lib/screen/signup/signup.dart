@@ -75,7 +75,7 @@ class _signupState extends State<signup> {
                     curve: Curves.easeInOutCubicEmphasized, //DA VEDERE
                     opacity: _opacity,
                     child: Image.asset(
-                      'images/shape.webp',
+                      'images/shape.png',
                     width: screenSize.width,
                     )),
               ),

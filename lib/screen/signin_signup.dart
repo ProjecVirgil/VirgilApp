@@ -31,7 +31,7 @@ class _signin_signupState extends State<signin_signup> {
               child:  TabBar(
                   //MODIFY STYLE
                   indicatorWeight: 4,
-                  indicatorColor: HexColor("#4b008e"),
+                  indicatorColor: HexColor("#A58EF5"),
                   tabs: [
                     Tab(
                       icon: Icon(Icons.login,color: HexColor(context.watch<brightessSwitch>().text) ,),

@@ -55,7 +55,7 @@ class PageCard extends StatelessWidget {
                   child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: context.watch<brightessSwitch>().background ==
-                              '#121212'
+                              '#1d1e27'
                           ? Image.asset('images/Icons/menusWhite.png')
                           : Image.asset('images/Icons/menusBlack.png')),
                 ),
@@ -68,7 +68,7 @@ class PageCard extends StatelessWidget {
                   child: Container(
                     height: 1,
                     color: HexColor(
-                        "#4b008e"), // Imposta il colore del bordo inferiore
+                        "#333544"), // Imposta il colore del bordo inferiore
                   ),
                 ),
               ),
@@ -83,7 +83,7 @@ class PageCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10)
                       ),
                       clipBehavior: Clip.hardEdge,
-                      color: HexColor("#290043"),
+                      color: HexColor("#282936"),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

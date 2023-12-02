@@ -32,8 +32,8 @@ class CardSetting extends StatelessWidget {
         child: SizedBox(
           height: 100,
           child: Card(
-            color: HexColor("#290043"), //4b008e
-            shadowColor: HexColor("#4b008e"),
+            color: HexColor("#282936"), //4b008e
+            shadowColor: HexColor("#333544"),
             elevation: 5,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -60,7 +60,7 @@ class CardSetting extends StatelessWidget {
                     style: GoogleFonts.openSans(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: HexColor("#DDDDDF")),
                   ),
                 ),
 
@@ -80,7 +80,7 @@ class CardSetting extends StatelessWidget {
                           style: GoogleFonts.montserrat(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
-                              color: Colors.white),
+                              color: HexColor("#DDDDDF")),
                         ),
                       )),
                 ),

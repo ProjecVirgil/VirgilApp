@@ -28,7 +28,7 @@ class cardExplore extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: HexColor("#290043").withOpacity(1),
+            color: HexColor("#333544").withOpacity(1),
             spreadRadius: 2,
             blurRadius: 2,
             offset: const Offset(
@@ -36,10 +36,10 @@ class cardExplore extends StatelessWidget {
           ),
         ],
         border: Border.all(
-          color: HexColor("#290043"),
+          color: HexColor("#333544"),
           width: 2,
         ),
-        color: HexColor("#290043"),
+        color: HexColor("#282936"),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Stack(children: [
@@ -56,7 +56,7 @@ class cardExplore extends StatelessWidget {
             width: _widthCard / 1.5,
             height: _heightCard / 2.5,
             decoration: BoxDecoration(
-              color: HexColor("#290043"),
+              color: HexColor("#282936"),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
@@ -68,6 +68,7 @@ class cardExplore extends StatelessWidget {
                       Text(
                         title,
                         style: GoogleFonts.ptSans(
+                          color: HexColor('#DDDDDF'),
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),
                       Padding(
