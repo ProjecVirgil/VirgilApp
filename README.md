@@ -1,4 +1,4 @@
-# Virgil App | Last docs update: 13/11/2023 (d/m/y)
+# Virgil App | Last docs update: 04/12/2023 (d/m/y)
 
 ## Description 📃
 
@@ -21,8 +21,8 @@ The app born for the configuration and manage setting of part project main [Virg
 
 ## Some mockup of the App 📸
 <div style="display: inline_block"><br>
-  <img width = "300" src="asset/iPhone 15.svg">
-  <img width = "300" src="asset/iPhone 14 Pro.svg">
+  <img width = "400" src="asset/iPhone 15.svg">
+  <img width = "400" src="asset/iPhone 14 Pro.svg">
 <div style="display: inline_block"><br>
 ## INFO
 
