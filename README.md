@@ -1,6 +1,7 @@
 # Virgil App | Last docs update: 13/11/2023 (d/m/y)
 
 ## Description 📃
+
 Virgil app is an app mobile created with [Dart](https://dart.dev/) and framework [Flutter](https://flutter.dev/) to allow the user to customize and set up their Virgil
 
 ### **Virgil-App** 📱
@@ -9,20 +10,22 @@ Virgil app is an app mobile created with [Dart](https://dart.dev/) and framework
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/Retr0100/VirgilApp?style=for-the-badge&logo=github&labelColor=%23282a3&color=%231B7F79)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Retr0100/VirgilApp?style=for-the-badge&logo=github&labelColor=%23282a3&color=%23bd93f9)
 
-
 ## Getting Started 📋
+
 The app born for the configuration and manage setting of part project main [VirgilAI](https://github.com/ProjecVirgil/VirgilAI)
 
 ## API and Extern 💸
+
 - API created by me with Flask and Python to link the settings management from the application to change the settings of Virgil on different device.
 - Login manage by [Firebase](https://firebase.google.com/products/)
 
-## Some screen of the App 📸
-| <img src="asset/Screen1.jpg" alt="Markdownify" width ="200px" > | <img src="asset/Screen5.jpg" alt="Markdownify" width ="200px"> |
-| <img src="asset/Screen2.jpg" alt="Markdownify" width ="200px"> | <img src="asset/Screen4.jpg" alt="Markdownify" width ="200px"> |
-<img src="asset/Screen3.jpg" alt="Markdownify" width ="200px"> | <img src="asset/Screen6.jpg" alt="Markdownify" width ="200px"> |
+## Some mockup of the App 📸
+
+<img width = "350" src="asset/iPhone 15.svg">
+<img width = "350" src="asset/iPhone 14 Pro.svg">
 
 ## INFO
+
 For more info see the principle page on the [project Virgil](https://github.com/ProjecVirgil/ProjectVirgil)
 
 ## RoadMap 🎯
@@ -36,9 +39,10 @@ For more info see the principle page on the [project Virgil](https://github.com/
 
 Developer: Only me for now
 Technologies:
- - Dart
- - Flutter
- - Firebase from Google
+
+- Dart
+- Flutter
+- Firebase from Google
 
 ## Other
 
