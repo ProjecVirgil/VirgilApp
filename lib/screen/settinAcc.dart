@@ -85,7 +85,7 @@ class _settingAccState extends State<settingAcc> {
               },
               child: Padding(
                   padding: const EdgeInsets.all(10),
-                  child: context.watch<brightessSwitch>().background == '#121212'
+                  child: context.watch<brightessSwitch>().background == '#1d1e27'
 
                       ? Image.asset('images/Icons/menusWhite.png')
                       : Image.asset('images/Icons/menusBlack.png')),
@@ -97,7 +97,7 @@ class _settingAccState extends State<settingAcc> {
               preferredSize: const Size.fromHeight(1.0),
               child: Container(
                 height: 1,
-                color: HexColor("#4b008e"), // Imposta il colore del bordo inferiore
+                color: HexColor("#A58EF5"), // Imposta il colore del bordo inferiore
               ),
             ),
           ),
@@ -117,7 +117,7 @@ class _settingAccState extends State<settingAcc> {
                 child: ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(HexColor("#290043"))),
+                            MaterialStateProperty.all<Color>(HexColor("#282936"))),
                     onPressed: () {
                       setState(() {
                         resetSended = true;
@@ -137,7 +137,7 @@ class _settingAccState extends State<settingAcc> {
                 child: ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(HexColor("#290043"))),
+                            MaterialStateProperty.all<Color>(HexColor("#282936"))),
                     onPressed: () {
                       verify();
                       setState(() {

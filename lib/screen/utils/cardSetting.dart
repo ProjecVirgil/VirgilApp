@@ -15,6 +15,25 @@ class CardSetting extends StatelessWidget {
   final String paragraf;
   final String page;
 
+
+  Widget _loadImage(String imagePath, double screenWidth) {
+    if (Uri.parse(imagePath).isAbsolute) {
+      // Se il percorso è un URL, usa Image.network
+      return Image.network(
+        imagePath,
+        width: screenWidth / 8,
+      );
+    } else {
+      // Altrimenti, usa Image.asset
+      return Image.asset(
+        imagePath,
+        width: screenWidth / 8,
+      );
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -46,10 +65,7 @@ class CardSetting extends StatelessWidget {
                   left: 20,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 10.0, left: 10),
-                    child: Image.asset(
-                      icon,
-                      width: screenWidth / 8,
-                    ),
+                    child: _loadImage(icon,screenWidth)
                   ),
                 ),
                 Positioned(

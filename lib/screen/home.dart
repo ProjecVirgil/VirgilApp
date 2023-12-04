@@ -117,8 +117,8 @@ class _homeState extends State<home> {
                                 page: 'configure',
                               ),
                               CardSetting(
-                                title: 'Virgil setting',
-                                icon: 'images/Icons/setting-lines.png',
+                                title: 'Setting',
+                                icon: 'https://img.icons8.com/ios/50/dddddf/sync-settings.png',
                                 paragraf: 'Modify the setting of your virgil',
                                 page: 'settings',
                               ),
