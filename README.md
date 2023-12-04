@@ -20,10 +20,10 @@ The app born for the configuration and manage setting of part project main [Virg
 - Login manage by [Firebase](https://firebase.google.com/products/)
 
 ## Some mockup of the App 📸
-
-<img width = "350" src="asset/iPhone 15.svg">
-<img width = "350" src="asset/iPhone 14 Pro.svg">
-
+<div style="display: inline_block"><br>
+  <img width = "300" src="asset/iPhone 15.svg">
+  <img width = "300" src="asset/iPhone 14 Pro.svg">
+<div style="display: inline_block"><br>
 ## INFO
 
 For more info see the principle page on the [project Virgil](https://github.com/ProjecVirgil/ProjectVirgil)
